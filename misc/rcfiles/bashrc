@@ -1,0 +1,40 @@
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+	. /etc/bashrc
+fi
+
+# User specific aliases and functions
+
+#MATLAB and CUDA
+PATH=${HOME}/matlab2009b/bin:/usr/local/cuda/bin:${PATH}
+LD_LIBRARY_PATH=/usr/local/cuda/lib:/usr/local/cuda/lib64:${LD_LIBRARY_PATH}
+export PATH LD_LIBRARY_PATH
+
+LFCDAPP=/lfcd_app
+#FSL
+FSLDIR=${LFCDAPP}/fsl
+. ${FSLDIR}/etc/fslconf/fsl.sh
+PATH=${FSLDIR}/bin:${PATH}
+export FSLDIR PATH
+
+#AFNI
+AFNIDIR=${LFCDAPP}/afni_xorg7_64
+PATH=${AFNIDIR}:${PATH}
+export AFNIDIR PATH
+
+#FREESURFER
+#FREESURFER_HOME=${LFCDAPP}/freesurfer
+FREESURFER_HOME=${LFCDAPP}/freesurfer-dev
+export PATH FREESURFER_HOME
+source $FREESURFER_HOME/SetUpFreeSurfer.sh
+
+#MRICRON
+MCRNDIR=${LFCDAPP}/mricron
+PATH=${PATH}:${MCRNDIR}
+export PATH
+
+#LFCD_REST
+PATH=${PATH}:${LFCDAPP}/lfcd_fcon_1000
+export PATH
