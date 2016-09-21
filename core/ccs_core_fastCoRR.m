@@ -11,10 +11,11 @@ function R = ccs_core_fastCoRR(X, Y)
 %   Xi-Nian Zuo, Ph.D. of Applied Mathematics
 %   Institute of Psychology, Chinese Academy of Sciences.
 %   Email: ZuoXN@psych.ac.cn
-%   Website: lfcd.psych.ac.cn
+%   Website: zuolab.psych.ac.cn
+%   Last Modified: 05/04/2016
 
-[numSamp1 ~] = size(X); % n*p1
-[numSamp2 ~] = size(Y); % n*p2
+[numSamp1, p1] = size(X); % n*p1
+[numSamp2, p2] = size(Y); % n*p2
 
 if (numSamp1 ~= numSamp2)
     disp('The two matices must have the same size of rows!')
@@ -22,5 +23,9 @@ else
     X = (X - repmat(mean(X), numSamp1, 1))./repmat(std(X, 0, 1), numSamp1, 1);
     Y = (Y - repmat(mean(Y), numSamp1, 1))./repmat(std(Y, 0, 1), numSamp1, 1);
     R = X' * Y / (numSamp1 - 1);
-    R(isnan(R)) = 0; R(abs(R)>=1)=1; %exclude some positions with round errors.
+    R(isnan(R)) = 0; R(abs(R)>=1) = 1; % exclude some positions with round errors.
+end
+% if the square matrix, then force its diag as ones
+if p1==p2
+    R = R - diag(diag(R)) + eye(p1);
 end
