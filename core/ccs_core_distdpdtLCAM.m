@@ -14,7 +14,7 @@ function [R_short, R_long] = ccs_core_distdpdtLCAM(data, corrthresh, distthresh,
 %   Xi-Nian Zuo, Ph.D. of Applied Mathematics
 %   Institute of Psychology, Chinese Academy of Sciences.
 %   Email: ZuoXN@psych.ac.cn
-%   Website: lfcd.psych.ac.cn
+%   Website: zuolab.psych.ac.cn
 
 [~, p] = size(data);
 if nargin < 5
