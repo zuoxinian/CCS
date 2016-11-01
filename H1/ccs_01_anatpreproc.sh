@@ -107,7 +107,7 @@ echo "Perform a tight brain extraction ..."
 bet tmp_head_fs2standard.nii.gz tmp.nii.gz -f ${bet_thr_tight} -m
 fslmaths tmp_mask.nii.gz -mas ${CCSDIR}/templates/MNI152_T1_1mm_first_brain_mask.nii.gz tmp_mask.nii.gz
 flirt -in tmp_mask.nii.gz -applyxfm -init tmp_standard2head_fs.mat -out brain_fsl_mask_tight.nii.gz -paddingsize 0.0 -interp nearestneighbour -ref head_fs.nii.gz
-fslmaths brain_fs_mask.nii.gz -add brain_fsl_mask_tight.nii.gz -bin brain_mask_tight.nii.gz
+fslmaths brain_fs_mask.nii.gz -mul brain_fsl_mask_tight.nii.gz -bin brain_mask_tight.nii.gz
 fslmaths head_fs.nii.gz -mas brain_fsl_mask_tight.nii.gz brain_fsl_tight.nii.gz
 fslmaths head_fs.nii.gz -mas brain_mask_tight.nii.gz brain_tight.nii.gz
 rm -f tmp.nii.gz
