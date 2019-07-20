@@ -1,0 +1,16 @@
+library(gamlss)
+library(gamlss.dist)
+args <- commandArgs(T)
+ftable <-  args[1]
+network <- read.table(ftable)
+plot(network[,2]~network[,1], data=network, col="blue", xlab="age", ylab="network")
+metric <- network[,2]
+age <- network[,1]
+mnetwork1 <- lms(metric, age, method.pb="GAIC", k=5)
+newage <- seq(6,18,0.25)
+centiles(mnetwork1, age, cent=c(5,25,50,75,95), legend=FALSE, ylab="network", xlab="Age", pch="o", lwd.centiles=c(2.5,2.5,4,2.5,2.5))
+dev.off()
+predictmat <- centiles.pred(mnetwork1, xname="age", xvalues=newage)
+fout <- args[2]
+write.table(predictmat, fout, quote = FALSE, sep = "\t", row.names = FALSE)
+rm(list=ls())	
