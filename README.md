@@ -1,4 +1,4 @@
 CCS
 ===
 
-Connectome Computation System for Multimodal Human Brain Imaging Data Analysis
+Connectome Computation System for Discovery Science of Human Brain
