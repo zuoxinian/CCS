@@ -101,7 +101,7 @@ for tem = 1:length(sublist_all)
             ntrl = size(EEG.data,1);
             
             %save eeg data
-            datafile = [subjname,num2str(i),'.eeg'];
+            datafile = [subjname,'FBs',num2str(i),'.eeg'];
             fid = fopen(datafile,'w');
             if length(size(dat))>2
                 ft_warning('writing segmented data as if it were continuous');
@@ -116,7 +116,7 @@ for tem = 1:length(sublist_all)
             [p, f, x] = fileparts(eegvhdr);
             vmrkfile = fullfile(p, [f '.vmrk']);
             
-            dataname = [subjname,num2str(i)];
+            dataname = [subjname,'FBs',num2str(i)];
             
             %%vhdrfile
             vhdrtext = fileread(eegvhdr);
