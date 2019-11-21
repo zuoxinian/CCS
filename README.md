@@ -7,4 +7,4 @@ If you use or are inspired by CCS, please credit it both the github link and ref
 
 Ting Xu, Zhi Yang, Lili Jiang, Xiu-Xia Xing, Xi-Nian Zuo. 2015. A Connectome Computation System for discovery science of brain. Science Bulletin, 60(1): 86-95.
 
-The full text of this system can be accessed in https://github.com/zuoxinian/CCS/blob/master/manual/ccs.paper.pdf
+The full text of this system can be accessed via https://github.com/zuoxinian/CCS/blob/master/manual/ccs.paper.pdf
