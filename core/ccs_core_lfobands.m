@@ -15,11 +15,11 @@ function freqbands = ccs_core_lfobands(samp_numbers, samp_interval)
 %   v1.0 released in 2017/12/30
 %   v1.1 released in 2020/02/17
 % REFERENCE:
-%   [1] Markku Penttonen, Gyorgy Buzs¨¢ki (2003). Natural logarithmic relationship between 
+%   [1] Markku Penttonen, Gyorgy BuzsÂ¨Â¢ki (2003). Natural logarithmic relationship between 
 %       brain oscillators. Thalamus & Related Systems 2: 145?152.
-%   [2] Gyorgy Buzs¨¢ki, Andreas Draguhn (2004). Neuronal Oscillations in
+%   [2] Gyorgy BuzsÂ¨Â¢ki, Andreas Draguhn (2004). Neuronal Oscillations in
 %       Cortical Networks. Science 304: 1926-1929.
-%   [3] M¨¹ller T, et al (2003). Detection of very low-frequency oscillations of cerebral 
+%   [3] Muller T, et al (2003). Detection of very low-frequency oscillations of cerebral 
 %       haemodynamics is influenced by data detrending. Med Biol Eng Comput 41: 69-74.
 
 %% Set up variables
