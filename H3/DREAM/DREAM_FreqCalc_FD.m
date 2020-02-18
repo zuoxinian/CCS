@@ -5,7 +5,6 @@ files = cellstr(filename);
 for tem = 1:length(sublist_all)
     subj = char(sublist_all(tem,1));
     
-
     savepath = [filepath,'/', subj,'/',func];
     savep = [savepath,'DREAM.mat'];
     save(savep);
