@@ -1,4 +1,4 @@
-CCS
+Connectome Computation System (CCS)
 ===
 
 A Connectome Computation System for Discovery Science of Human Brain
