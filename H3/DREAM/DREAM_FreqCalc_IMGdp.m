@@ -1,4 +1,4 @@
-function [freqbands,output_mtx] = DREAM_FreqCalc_IMG(TR,filepath,sub_list,func,filename)
+function [freqbands,output_mtx] =DREAM_FreqCalc_IMGdp(TR,filepath,sub_list,func,filename)
 sublist_all = importdata(sub_list)
 files = cellstr(filename);
 
@@ -8,7 +8,7 @@ for tem = 1:length(sublist_all)
     savepath = [filepath,'/', subj,'/',func];
     savep = [savepath,'/DREAM.mat'];
     save(savep);
-   
+    
     afdpath = [filepath '/' subj '/' func];
     %%ccs_core_lfofreqbands2
     for ii = 1:length(files)
@@ -24,6 +24,13 @@ for tem = 1:length(sublist_all)
         N = num_samples;
         % Set up variables
         
+        NearN = floor(size(subj_vol,1)/10);
+        Mod = size(subj_vol,1)-9*NearN;
+        Vn =ones(1,9)*NearN;
+        Vn(1,10)= Mod;
+        input_m = mat2cell(subj_vol,Vn,size(subj_vol,2));
+        
+        clear subj_vol;
         fmax = 1/(2*TR); fmin = 1/(N*TR/2);
         if rem(N,2)==0
             fnum = N/2;
@@ -41,7 +48,7 @@ for tem = 1:length(sublist_all)
         nlcf = nlcfmin:nlcfmax;
         numbands = numel(nlcf);
         freqbands = cell(numbands,1);
-        for nlcfID=1:numbands
+        parfor nlcfID=1:numbands
             [~,idxfmin] = min(abs(freq-exp(nlcf(nlcfID)-0.5)));
             [~,idxfmax] = min(abs(freq-exp(nlcf(nlcfID)+0.5)));
             freqbands{nlcfID} = [freq(idxfmin) freq(idxfmax)];
@@ -66,9 +73,6 @@ for tem = 1:length(sublist_all)
         csvwrite(['freqbands.csv'],freqbands);
         
         %%
-
-        input_mtx= subj_vol';
-        clear subj_vol
         for i =1:length(freqbands)
             low_f = min(freqbands{i,1})
             high_f = max(freqbands{i,1})
@@ -97,18 +101,21 @@ for tem = 1:length(sublist_all)
             rectangle = zeros(L, 1);
             rectangle(ind) = 1;
             
-            % use fft to transform the time course into frequency domain
             fprintf('FFT each time course.\n')
-            input_mtx_fft = fft(input_mtx);
-
-            % apply the rectangle window and ifft the signal from frequency domain to time domain
+            for j =1:10
+                input_mtx= input_m{j,1}';
+                input_mtx_d = distributed(input_mtx);
+                % use fft to transform the time course into frequency domain
+                input_mtx_fft{j,1} =fft(input_mtx_d);
+                 % apply the rectangle window and ifft the signal from frequency domain to time domain
+                output_mtx{j,1} = ifft(bsxfun(@times, input_mtx_fft{j,1}, rectangle));
+                res{j,1} = gather(output_mtx{j,1});
+            end
             fprintf('Apply rectangle window and IFFT.\n');
-            %output_mtx{i,1} = ifft(bsxfun(@times, input_mtx_fft, rectangle));
-            subj_v_vol = ifft(bsxfun(@times, input_mtx_fft, rectangle));
-            
-            clear  input_mtx_fft
-            subj_v.vol= reshape(subj_v_vol',X,Y,Z,N);
-            clear  subj_v_vol 
+ 
+            subj_v_vol = cell2mat(res')';
+            clear input_mtx_fft  input_mtx_d output_mtx res  
+            subj_v.vol= reshape(subj_v_vol,X,Y,Z,N);
             
             cd (afdpath);
             savefile = strrep(file,'.nii.gz','FBs');
@@ -117,6 +124,7 @@ for tem = 1:length(sublist_all)
             p = ['save_nifti(subj_v ,''', dir_path ,'/',savefile , num2str(i), '.nii.gz', ''')'];
             eval(p);
             cd (dir_path);
+            
         end
     end
 end
