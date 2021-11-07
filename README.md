@@ -13,12 +13,12 @@ The full text of this system can be accessed via https://github.com/zuoxinian/CC
 
 # Install and Run CCS
 
-## 1.Running Platform 
+## 1. Running Platform 
 CCS  can be used on Linux/Unix and Mac systems.  You also need to install:
 * Matlab above R2007a
 * Python 3.0 or Above. We suggest you to install Anaconda toolbox https://www.anaconda.com/products/individual#Downloads
 
-## 2.Requirements 
+## 2. Requirements 
 CCS needs to install these neuroimage tools in order to run ourt pipeline:
 * AFNI https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/background_install/main_toc.html
 * FreeSurfer https://surfer.nmr.mgh.harvard.edu/
@@ -27,7 +27,7 @@ CCS needs to install these neuroimage tools in order to run ourt pipeline:
 * CAT12 http://www.neuro.uni-jena.de/cat/index.html#DOWNLOAD
 * Docker and DeepBet https://github.com/HumanBrainED/NHP-BrainExtraction
 
-## 3.Install CCS
+## 3. Install CCS
 After downloading the CCS_APP folder to the specified location, you need to configure the system environment variables and write the path of CCS_APP into the environment. Usually, the environment variables are saved at bashrc or bash_profile on Linux or Mac OX systems. Please first check the name of the environment variable file used on your system and type the following sentence on your command line.
 ```bash
 echo "export CCS_APP=/dir-to-your-CCS_APP/CCS_APP/" >> ~/.bashrc
@@ -39,7 +39,7 @@ echo $CCS_APP
 If the screen shows the directory where your CCS_APP is located, the CCS environment variable has been successfully configured.
 * * *
 
-## 4.Data Preprocessing
+## 4. Data Preprocessing
 Once the CCS and the corresponding isoftware have been successfully installed according to the above steps, the data can be pre-processed.
 
 ### 4.1 Data Organizing
