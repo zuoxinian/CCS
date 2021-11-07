@@ -25,6 +25,8 @@ rest=$3
 anat_dir_name=$4
 ## name of func directory
 func_dir_name=$5
+## FreeSurfer SUBJECTS_DIR
+SUBJECTS_DIR=$6
 
 ## directory setup
 anat_dir=${dir}/${subject}/${anat_dir_name}
@@ -33,18 +35,27 @@ func_reg_dir=${func_dir}/reg
 anat_seg_dir=${anat_dir}/segment
 func_seg_dir=${func_dir}/segment
 
-SUBJECTS_DIR=${dir}
-
 if [ $# -lt 5 ];
 then
         echo -e "\033[47;35m Usage: $0 subject analysis_dir rest_name anat_dir_name func_dir_name \033[0m"
         exit
 fi
 
+if [ $# -lt 6 ]
+then
+    SUBJECTS_DIR=${dir}
+fi
+
 echo -----------------------------------------
 echo !!!! RUNNING FUNCTIONAL SEGMENTATION !!!!
 echo -----------------------------------------
 
+## 0. If exist anat segment directory
+if [ ! -f ${anat_seg_dir}/segment_csf.nii.gz ]
+then
+    mri_binarize --i ${SUBJECTS_DIR}/${subject}/mri/aseg.mgz --o ${anat_seg_dir}/segment_wm.nii.gz --match 2 41 7 46 251 252 253 254 255 --erode 1
+    mri_binarize --i ${SUBJECTS_DIR}/${subject}/mri/aseg.mgz --o ${anat_seg_dir}/segment_csf.nii.gz --match 4 5 43 44 31 63 --erode 1
+fi
 
 ## 1. Make segment dir
 mkdir -p ${func_seg_dir}
@@ -70,7 +81,7 @@ then
 	overlay 1 1 ${func_dir}/example_func.nii.gz -a ${func_dir}/csf_mask_fs.nii.gz 1 1 rendered_mask.nii.gz
 	slicer rendered_mask -a csf_mask_fs.png
 	title=ccs.qcp.func.segment.csf
-	convert -font helvetica -fill white -pointsize 10 -draw "text 10,10 '$title'" csf_mask_fs.png csf_mask_fs.png
+	#convert -font helvetica -fill white -pointsize 10 -draw "text 10,10 '$title'" csf_mask_fs.png csf_mask_fs.png
 fi
 rm -f rendered_mask.nii.gz
 
@@ -84,7 +95,7 @@ then
 	overlay 1 1 ${func_dir}/example_func.nii.gz -a ${func_dir}/wm_mask_fs.nii.gz 1 1 rendered_mask.nii.gz
 	slicer rendered_mask -a wm_mask_fs.png
 	title=ccs.qcp.func.segment.wm
-	convert -font helvetica -fill white -pointsize 10 -draw "text 10,10 '$title'" wm_mask_fs.png wm_mask_fs.png
+	#convert -font helvetica -fill white -pointsize 10 -draw "text 10,10 '$title'" wm_mask_fs.png wm_mask_fs.png
 fi
 rm -f rendered_mask.nii.gz
 
@@ -94,7 +105,7 @@ then
 	overlay 1 1 ${func_dir}/example_func.nii.gz -a parcels165.nii.gz 1 165 rendered_parcels165.nii.gz
 	slicer rendered_parcels165.nii.gz -l ${FSL_DIR}/etc/luts/renderhot.lut -a parcels165.png
 	title=ccs.qcp.func.segment.fs165parcels
-        convert -font helvetica -fill white -pointsize 10 -draw "text 10,10 '$title'" parcels165.png parcels165.png
+        #convert -font helvetica -fill white -pointsize 10 -draw "text 10,10 '$title'" parcels165.png parcels165.png
 else
 	echo Please run ccs_06_singlesubjectRFMRIparcels.m first!
 fi

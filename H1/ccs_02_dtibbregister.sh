@@ -14,23 +14,29 @@
 subject=$1
 ## analysisdir
 dir=$2
-## name of functional directory
-dti_dir_name=$4
-## name of the resting-state scan
-dti_name=$3
+## name of dti directory
+dti_dir_name=$3
+## name of the diffusion imaging scan
+dti_name=$4
 ## fsaverage
 fsaverage=$5
+## SUBJECTS_DIR
+SUBJECTS_DIR=$6
 ## directory setup
 dti_dir=${dir}/${subject}/${dti_dir_name}
 dti_reg_dir=${dti_dir}/reg
 dti_seg_dir=${dti_dir}/segment
 dti_mask_dir=${dti_dir}/mask
-SUBJECTS_DIR=${dir}
 
 if [ $# -lt 5 ];
 then
-        echo -e "\033[47;35m Usage: $0 subject analysis_dir dti_name dti_dir_name fsaverage \033[0m"
+        echo -e "\033[47;35m Usage: $0 subject analysis_dir dti_dir_name dti_name fsaverage \033[0m"
         exit
+fi
+
+if [ $# -lt 6 ];
+then
+    ${SUBJECTS_DIR}=${dir}
 fi
 
 if [ ! -d ${SUBJECTS_DIR}/${fsaverage} ]

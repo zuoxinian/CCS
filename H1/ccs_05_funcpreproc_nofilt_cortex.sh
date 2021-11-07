@@ -10,7 +10,7 @@
 ## subject
 subject=$1
 ## analysisdirectory
-dir=$2 ; SUBJECTS_DIR=${dir}
+dir=$2
 ## resting-state filename (no extension)
 rest=$3
 ## name of anatomical directory
@@ -21,15 +21,17 @@ func_dir_name=$5
 ## template in ${dir}/group/template/template_head.nii.gz
 ## standard surface
 fsaverage=$6
+## FreeSurfer SUBJECTS_DIR
+SUBJECTS_DIR=$7
 ## name of registration dir
-reg_dir_name=$7
+reg_dir_name=$8
 
 ## set your desired spatial smoothing FWHM - we use 6 (acquisition voxel size is 3x3x4mm)
 FWHM=6 ; sigma=`echo "scale=10 ; ${FWHM}/2.3548" | bc`
 
 if [ $# -lt 6 ];
 then
-        echo -e "\033[47;35m Usage: $0 subject analysis_dir rest_name anat_dir_name func_dir_name fsaverage (only name) \033[0m"
+        echo -e "\033[47;35m Usage: $0 subject analysis_dir rest_name anat_dir_name func_dir_name fsaverage (only name) SUBJECTS_DIR reg_dir_name \033[0m"
         exit
 fi
 
@@ -39,8 +41,14 @@ echo --------------------------------------------------------
 
 if [ $# -lt 7 ];
 then
-        reg_dir_name=reg
+    SUBJECTS_DIR=${dir}
 fi
+
+if [ $# -lt 8 ];
+then
+    reg_dir_name=reg
+fi
+
 ## directory setup
 func_dir=${dir}/${subject}/${func_dir_name}
 func_reg_dir=${func_dir}/reg
@@ -65,10 +73,9 @@ then
         mri_fwhm --i ${FC_dir}/${rest}_pp_nofilt_sm0.nii.gz --o ${FC_dir}/${rest}_pp_nofilt_sm${FWHM}.nii.gz --smooth-only --fwhm ${FWHM} --mask ${func_dir}/${rest}_pp_mask.nii.gz
 fi
 ## Surface projection ans smoothing
-if [ ! -f ${FC_dir}/${rest}.pp.nofilt.sm${FWHM}.${fsaverage}.lh.nii.gz ]
+if [ ! -f ${FC_dir}/${rest}.pp.nofilt.sm${FWHM}.${fsaverage}.rh.nii.gz ]
 then
         #surface
-        SUBJECTS_DIR=${dir}
         if [ ! -d ${SUBJECTS_DIR}/${fsaverage} ]
         then
                 ln -s ${FREESURFER_HOME}/subjects/${fsaverage} ${SUBJECTS_DIR}/${fsaverage}
@@ -85,7 +92,7 @@ then
                         if [ ! -e ${func_mask_dir}/brain.${fsaverage}.${hemi}.nii.gz ]
 			then
 				mri_vol2surf --mov ${func_mask_dir}/brain.nii.gz --reg ${func_reg_dir}/bbregister.dof6.dat --trgsubject fsaverage --interp trilin --projfrac 0.5 --hemi ${hemi} --o ${func_mask_dir}/brain.fsaverage.${hemi}.nii.gz --noreshape --cortex --surfreg sphere.reg
-                        	mri_surf2surf --srcsubject fsaverage --sval ${func_mask_dir}/brain.fsaverage.${hemi}.nii.gz --hemi ${hemi} --cortex --trgsubject ${fsaverage} --tval ${func_mask_dir}/brain.${fsaverage}.${hemi}.nii.gz --surfreg sphere.reg
+                        	mri_surf2surf --srcsubject fsaverage --sval ${func_mask_dir}/brain.fsaverage.${hemi}.nii.gz --hemi ${hemi} --trgsubject ${fsaverage} --tval ${func_mask_dir}/brain.${fsaverage}.${hemi}.nii.gz --surfreg sphere.reg
                         	mri_binarize --i ${func_mask_dir}/brain.fsaverage.${hemi}.nii.gz --min .00001 --o ${func_mask_dir}/brain.fsaverage.${hemi}.nii.gz
                         	mri_binarize --i ${func_mask_dir}/brain.${fsaverage}.${hemi}.nii.gz --min .00001 --o ${func_mask_dir}/brain.${fsaverage}.${hemi}.nii.gz
 			fi

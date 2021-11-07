@@ -7,8 +7,6 @@
 ## 
 ## Email: zuoxn@psych.ac.cn or zuoxinian@gmail.com.
 ##
-## Last modified: 08/01/2014
-##
 ##########################################################################################################################
 
 ## subject
@@ -27,8 +25,6 @@ num_scans=$6
 gcut=$7
 ## directory setup
 CCSDIR=$8
-
-## setting variables
 anat_dir=${dir}/${subject}/${anat_dir_name}
 SUBJECTS_DIR=${dir} #FREESURFER SETUP
 
@@ -52,21 +48,19 @@ if [[ "${sanlm_denoised}" = "true" ]]
 then
 	if [ ${num_scans} -eq 1 ]
 	then
-		rm -v ${anat_dir}/${anat}1_sanlm.nii.gz
-		#ln -s ${anat_dir}/${anat}_sanlm.nii.gz ${anat_dir}/${anat}1_sanlm.nii.gz
+		rm -v ${anat}1_sanlm.nii.gz
 		ln -s ${anat}_sanlm.nii.gz ${anat}1_sanlm.nii.gz
 	fi
 	for (( n=1; n <= ${num_scans}; n++ ))
 	do
-		#3drefit -deoblique ${anat_dir}/${anat}${n}_sanlm.nii.gz
-		3drefit -deoblique ${anat}${n}_sanlm.nii.gz
+		3drefit -deoblique ${anat_dir}/${anat}${n}_sanlm.nii.gz
 		mri_convert --in_type nii ${anat}${n}_sanlm.nii.gz ${SUBJECTS_DIR}/${subject}/mri/orig/00${n}.mgz
 	done	
 else
 	if [ ${num_scans} -eq 1 ]
         then
-		rm -v ${anat_dir}/${anat}1.nii.gz
-                ln -s ${anat_dir}/${anat}.nii.gz ${anat_dir}/${anat}1.nii.gz
+		rm -v ${anat}1.nii.gz
+                ln -s ${anat}.nii.gz ${anat}1.nii.gz
         fi
 	for (( n=1; n <= ${num_scans}; n++ ))
        	do
@@ -130,33 +124,33 @@ rm -f tmp* T1.nii.gz
 overlay 1 1 head_fs.nii.gz -a brain_fs_mask.nii.gz 1 1 rendered_mask.nii.gz
 #FS BET
 slicer rendered_mask -S 10 1200 skull_fs_strip.png
-title=${subject}.ccs.qcp.anat.skullstrip.fs
-convert -font helvetica -fill white -pointsize 20 -draw "text 10,20 '$title'" skull_fs_strip.png skull_fs_strip.png
+title=${subject}.ccs.anat.fs.skullstrip
+convert -font helvetica -fill white -pointsize 36 -draw "text 30,50 '$title'" skull_fs_strip.png skull_fs_strip.png
 #FS/FSL tight BET
 rm -f rendered_mask.nii.gz
 overlay 1 1 head_fs.nii.gz -a brain_mask_tight.nii.gz 1 1 rendered_mask.nii.gz
 slicer rendered_mask -S 10 1200 skull_tight_strip.png
-title=${subject}.ccs.qcp.anat.skullstrip.tight
-convert -font helvetica -fill white -pointsize 20 -draw "text 10,20 '$title'" skull_tight_strip.png skull_tight_strip.png
+title=${subject}.ccs.anat.skullstrip
+convert -font helvetica -fill white -pointsize 36 -draw "text 30,50 '$title'" skull_tight_strip.png skull_tight_strip.png
 rm -f rendered_mask.nii.gz
 fslmaths brain_fs_mask.nii.gz -sub brain_mask_tight.nii.gz -abs -bin diff_mask_tight.nii.gz
 overlay 1 1 head_fs.nii.gz -a diff_mask_tight.nii.gz 1 1 rendered_mask.nii.gz
 slicer rendered_mask -S 10 1200 skull_tight_strip_diff.png
-title=${subject}.ccs.qcp.anat.skullstrip.tight-fs
-convert -font helvetica -fill white -pointsize 20 -draw "text 10,20 '$title'" skull_tight_strip_diff.png skull_tight_strip_diff.png
+title=${subject}.ccs.anat.skullstrip.diff
+convert -font helvetica -fill white -pointsize 36 -draw "text 30,50 '$title'" skull_tight_strip_diff.png skull_tight_strip_diff.png
 rm -f rendered_mask.nii.gz
 #FS/FSL loose BET
 rm -f rendered_mask.nii.gz
 overlay 1 1 head_fs.nii.gz -a brain_mask_loose.nii.gz 1 1 rendered_mask.nii.gz
 slicer rendered_mask -S 10 1200 skull_loose_strip.png
-title=${subject}.ccs.qcp.anat.skullstrip.loose
-convert -font helvetica -fill white -pointsize 20 -draw "text 10,20 '$title'" skull_loose_strip.png skull_loose_strip.png
+title=${subject}.ccs.anat.skullstrip
+convert -font helvetica -fill white -pointsize 36 -draw "text 30,50 '$title'" skull_loose_strip.png skull_loose_strip.png
 rm -f rendered_mask.nii.gz
 fslmaths brain_fs_mask.nii.gz -sub brain_mask_loose.nii.gz -abs -bin diff_mask_loose.nii.gz
 overlay 1 1 head_fs.nii.gz -a diff_mask_loose.nii.gz 1 1 rendered_mask.nii.gz
 slicer rendered_mask -S 10 1200 skull_loose_strip_diff.png
-title=${subject}.ccs.anat.qcp.skullstrip.loose-fs
-convert -font helvetica -fill white -pointsize 20 -draw "text 10,20 '$title'" skull_loose_strip_diff.png skull_loose_strip_diff.png
+title=${subject}.ccs.anat.skullstrip.diff
+convert -font helvetica -fill white -pointsize 36 -draw "text 30,50 '$title'" skull_loose_strip_diff.png skull_loose_strip_diff.png
 rm -f rendered_mask.nii.gz
 
 cd ${cwd}

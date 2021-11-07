@@ -10,7 +10,7 @@
 ## subject
 subject=$1
 ## analysisdirectory
-dir=$2 ; SUBJECTS_DIR=${dir}
+dir=$2
 ## resting-state filename (no extension)
 rest=$3
 ## name of anatomical directory
@@ -20,8 +20,10 @@ func_dir_name=$5
 ## if refined anat registration with the study-specific symmetric template: remember to put your study-specific
 ## standard surface
 fsaverage=$6
+## FreeSurfer SUBJECTS_DIR
+SUBJECTS_DIR=$7
 ## name of registration dir
-reg_dir_name=$7
+reg_dir_name=$8
 
 ## set your desired spatial smoothing FWHM - we use 6 (acquisition voxel size is 3x3x4mm)
 FWHM=6 ; sigma=`echo "scale=10 ; ${FWHM}/2.3548" | bc`
@@ -31,7 +33,7 @@ hp=0.01 ; lp=0.1
 
 if [ $# -lt 6 ];
 then
-        echo -e "\033[47;35m Usage: $0 subject analysis_dir rest_name anat_dir_name func_dir_name fsaverage (only name) \033[0m"
+        echo -e "\033[47;35m Usage: $0 subject analysis_dir rest_name anat_dir_name func_dir_name fsaverage (only name) SUBJECTS_DIR reg_dir_name \033[0m"
         exit
 fi
 
@@ -41,8 +43,14 @@ echo --------------------------------------------------------
 
 if [ $# -lt 7 ];
 then
-	reg_dir_name=reg
+    SUBJECTS_DIR=${dir}
 fi
+
+if [ $# -lt 8 ];
+then
+    reg_dir_name=reg
+fi
+
 ## directory setup
 func_dir=${dir}/${subject}/${func_dir_name}
 func_reg_dir=${func_dir}/reg
@@ -56,31 +64,30 @@ mkdir -p ${gsFC_dir}
 
 if [ ! -f ${FC_dir}/${rest}_pp_sm0.nii.gz ]
 then
-	## 1. Temporal filtering
-        echo "Band-pass filtering: ${subject}"
-        3dFourier -lowpass ${lp} -highpass ${hp} -retrend -prefix ${gsFC_dir}/${rest}_filt.nii.gz ${gsFC_dir}/${rest}_res-gs.nii.gz
-        3dFourier -lowpass ${lp} -highpass ${hp} -retrend -prefix ${FC_dir}/${rest}_filt.nii.gz ${FC_dir}/${rest}_res.nii.gz
-        ## 2.Detrending
+        ## 1.Detrending
         echo "Removing linear and quadratic trends for ${subject}"
-        3dTstat -mean -prefix ${gsFC_dir}/${rest}_filt_mean.nii.gz ${gsFC_dir}/${rest}_filt.nii.gz
-        3dDetrend -polort 2 -prefix ${gsFC_dir}/${rest}_dt.nii.gz ${gsFC_dir}/${rest}_filt.nii.gz
-        3dcalc -a ${gsFC_dir}/${rest}_filt_mean.nii.gz -b ${gsFC_dir}/${rest}_dt.nii.gz -expr 'a+b' -prefix ${gsFC_dir}/${rest}_pp_sm0.nii.gz
-        3dTstat -mean -prefix ${FC_dir}/${rest}_filt_mean.nii.gz ${FC_dir}/${rest}_filt.nii.gz
-        3dDetrend -polort 2 -prefix ${FC_dir}/${rest}_dt.nii.gz ${FC_dir}/${rest}_filt.nii.gz
-        3dcalc -a ${FC_dir}/${rest}_filt_mean.nii.gz -b ${FC_dir}/${rest}_dt.nii.gz -expr 'a+b' -prefix ${FC_dir}/${rest}_pp_sm0.nii.gz
-        rm -rv ${gsFC_dir}/${rest}_filt.nii.gz ${gsFC_dir}/${rest}_filt_mean.nii.gz ${gsFC_dir}/${rest}_dt.nii.gz
-        rm -rv ${FC_dir}/${rest}_filt.nii.gz ${FC_dir}/${rest}_filt_mean.nii.gz ${FC_dir}/${rest}_dt.nii.gz
-        ## 3. Spatial smoothing
+        3dTstat -mean -prefix ${gsFC_dir}/${rest}_res-gs_mean.nii.gz ${gsFC_dir}/${rest}_res-gs.nii.gz
+        3dDetrend -polort 2 -prefix ${gsFC_dir}/${rest}_dt.nii.gz ${gsFC_dir}/${rest}_res-gs.nii.gz
+        3dcalc -a ${gsFC_dir}/${rest}_res-gs_mean.nii.gz -b ${gsFC_dir}/${rest}_dt.nii.gz -expr 'a+b' -prefix ${gsFC_dir}/${rest}_pp_sm0.nii.gz
+        3dTstat -mean -prefix ${FC_dir}/${rest}_res_mean.nii.gz ${FC_dir}/${rest}_res.nii.gz
+        3dDetrend -polort 2 -prefix ${FC_dir}/${rest}_dt.nii.gz ${FC_dir}/${rest}_res.nii.gz
+        3dcalc -a ${FC_dir}/${rest}_res_mean.nii.gz -b ${FC_dir}/${rest}_dt.nii.gz -expr 'a+b' -prefix ${FC_dir}/${rest}_pp_sm0.nii.gz
+        rm -rv ${gsFC_dir}/${rest}_res-gs_mean.nii.gz ${gsFC_dir}/${rest}_dt.nii.gz
+        rm -rv ${FC_dir}/${rest}_res_mean.nii.gz ${FC_dir}/${rest}_dt.nii.gz
+        ## 2. Spatial smoothing
         #volume
         mri_fwhm --i ${gsFC_dir}/${rest}_pp_sm0.nii.gz --o ${gsFC_dir}/${rest}_pp_sm${FWHM}.nii.gz --smooth-only --fwhm ${FWHM} --mask ${func_dir}/${rest}_pp_mask.nii.gz
         mri_fwhm --i ${FC_dir}/${rest}_pp_sm0.nii.gz --o ${FC_dir}/${rest}_pp_sm${FWHM}.nii.gz --smooth-only --fwhm ${FWHM} --mask ${func_dir}/${rest}_pp_mask.nii.gz
+	## 3. Temporal filtering (only option for reasearch at this stage)
+	echo "Band-pass filtering: ${subject}"
+	3dFourier -lowpass ${lp} -highpass ${hp} -retrend -prefix ${gsFC_dir}/${rest}_sm${FWHM}_filt.nii.gz ${gsFC_dir}/${rest}_pp_sm${FWHM}.nii.gz
+	3dFourier -lowpass ${lp} -highpass ${hp} -retrend -prefix ${FC_dir}/${rest}_sm${FWHM}_filt.nii.gz ${FC_dir}/${rest}_pp_sm${FWHM}.nii.gz
 fi
 
-if [ ! -f ${FC_dir}/${rest}.pp.sm${FWHM}.${fsaverage}.lh.nii.gz ]
+## 4. Spatial smoothing on Surface
+if [ ! -f ${FC_dir}/${rest}.pp.sm${FWHM}.${fsaverage}.rh.nii.gz ]
 then
         #surface
-        SUBJECTS_DIR=${dir}
-
         if [ ! -d ${SUBJECTS_DIR}/fsaverage ]
         then
                 ln -s ${FREESURFER_HOME}/subjects/fsaverage ${SUBJECTS_DIR}/fsaverage
@@ -98,7 +105,7 @@ then
                         if [ ! -e ${func_mask_dir}/brain.${fsaverage}.${hemi}.nii.gz ]
                         then
                                 mri_vol2surf --mov ${func_mask_dir}/brain.nii.gz --reg ${func_reg_dir}/bbregister.dof6.dat --trgsubject fsaverage --interp trilin --projfrac 0.5 --hemi ${hemi} --o ${func_mask_dir}/brain.fsaverage.${hemi}.nii.gz --noreshape --cortex --surfreg sphere.reg
-                                mri_surf2surf --srcsubject fsaverage --sval ${func_mask_dir}/brain.fsaverage.${hemi}.nii.gz --hemi ${hemi} --cortex --trgsubject ${fsaverage} --tval ${func_mask_dir}/brain.${fsaverage}.${hemi}.nii.gz --surfreg sphere.reg
+                                mri_surf2surf --srcsubject fsaverage --sval ${func_mask_dir}/brain.fsaverage.${hemi}.nii.gz --hemi ${hemi} --trgsubject ${fsaverage} --tval ${func_mask_dir}/brain.${fsaverage}.${hemi}.nii.gz --surfreg sphere.reg
                                 mri_binarize --i ${func_mask_dir}/brain.fsaverage.${hemi}.nii.gz --min .00001 --o ${func_mask_dir}/brain.fsaverage.${hemi}.nii.gz
                                 mri_binarize --i ${func_mask_dir}/brain.${fsaverage}.${hemi}.nii.gz --min .00001 --o ${func_mask_dir}/brain.${fsaverage}.${hemi}.nii.gz
                         fi

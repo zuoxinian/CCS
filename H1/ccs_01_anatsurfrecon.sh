@@ -5,6 +5,11 @@
 ##
 ## R-fMRI master: Xi-Nian Zuo at the Institute of Psychology, CAS.
 ## Email: zuoxn@psych.ac.cn
+## References:
+## [1]. Biswal BB, Mennes M, Zuo XN, et al. Toward discovery science of human brain function. 
+##	Proc Natl Acad Sci U S A. 2010 Mar 9;107(10):4734-9.
+## [2]. Jo HJ, Saad ZS, Simmons WK, Milbury LA, Cox RW. Mapping sources of correlation in resting state FMRI, 
+##	with artifact detection and removal. Neuroimage. 2010 Aug 15;52(2):571-82.
 ##########################################################################################################################
 
 ## subject
@@ -50,7 +55,7 @@ fi
 ## 3. Segment the brain (Freeserfer segmentation)
 mri_convert -it mgz ${SUBJECTS_DIR}/${subject}/mri/brainmask.mgz -ot nii ${anat_seg_dir}/brainmask.nii.gz
 mri_convert -it mgz ${SUBJECTS_DIR}/${subject}/mri/T1.mgz -ot nii ${anat_seg_dir}/T1.nii.gz
-if [[ ! -e ${SUBJECTS_DIR}/${subject}/surf/rh.pial ]]
+if [[ ! -e ${SUBJECTS_DIR}/${subject}/mri/aseg.mgz ]]
 then
 	echo "Segmenting brain for ${subject} (May take more than 24 hours ...)"
 	if [ "${use_gpu}" = "true" ] 
@@ -60,7 +65,7 @@ then
 		recon-all -s ${subject} -autorecon2 -autorecon3 -no-isrunning
 	fi
 fi
-#freesurfer segmentation: WM/CSF
+#freesurfer version
 mri_binarize --i ${SUBJECTS_DIR}/${subject}/mri/aseg.mgz --o segment_wm.nii.gz --match 2 41 7 46 251 252 253 254 255 --erode 1
 mri_binarize --i ${SUBJECTS_DIR}/${subject}/mri/aseg.mgz --o segment_csf.nii.gz --match 4 5 43 44 31 63 --erode 1
 
