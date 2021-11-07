@@ -29,7 +29,7 @@ numROI_DA = numel(Destrieux83ROI);
 numPARCEL_DA = numel(Destrieux165parcels);
 %YEO_lh
 numROI_YEO = 57;
-fannot = [ccs_dir '/parcellation/' fsaverage ...
+fannot = [ccs_dir '/parcellation/ParcelsYeo2011/' fsaverage ...
     '/lh.Yeo2011_17Networks_N1000.split_components.annot'];
 [vertices_lh,label_lh,colortable_lh] = read_annotation(fannot);
 nVertices_lh = numel(vertices_lh); 
@@ -40,7 +40,7 @@ for k=1:numROI_YEO
     parcel_names_lh{k} = tmpStr(12:end);
 end
 %YEO_rh
-fannot = [ccs_dir '/parcellation/' fsaverage ...
+fannot = [ccs_dir '/parcellation/ParcelsYeo2011/' fsaverage ...
     '/rh.Yeo2011_17Networks_N1000.split_components.annot'];
 [vertices_rh,label_rh,colortable_rh] = read_annotation(fannot);
 nVertices_rh = numel(vertices_rh);

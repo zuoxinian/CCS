@@ -57,8 +57,9 @@ for k=1:nsubs
     surfMASKhdr_lh = load_nifti(fmask); %idx_lh_mask = find(surfMASKhdr_lh.vol > 0);
     surfMASKhdr_lh.datatype = 16; %float
     surfMASKhdr_lh.descrip = ['CCS ' date];
-    for fwhm = [0]
-        fname = [func_dir '/' rest_name '.pp.nofilt.sm' num2str(fwhm) '.' fsaverage '.lh.nii.gz'];% no smoothing
+    fwhm = [0 6];
+    for smid=1:2
+        fname = [func_dir '/' rest_name '.pp.nofilt.sm' num2str(fwhm(smid)) '.' fsaverage '.lh.nii.gz'];% no smoothing
         surfPPhdr_lh = load_nifti(fname);
         %Amplitude
         cALFF_lh = zeros(nVertices_lh,1); cFALFF_lh = zeros(nVertices_lh,1);
@@ -67,7 +68,7 @@ for k=1:nsubs
         cPLFF_lh = zeros(nVertices_lh,1); cFPLFF_lh = zeros(nVertices_lh,1);
         cPLFFs4_lh = zeros(nVertices_lh,1); cFPLFFs4_lh = zeros(nVertices_lh,1);
         for ii=1:nVertices_lh
-            if ~mod(ii,500); 
+            if ~mod(ii,500) 
                 disp(['Completing ' num2str(ii/nVertices_lh*100) ...
                 ' percent vertices processed in left hemisphere ...'])
             end
@@ -79,14 +80,14 @@ for k=1:nsubs
         end
         %ALFF
         surfMASKhdr_lh.vol = cALFF_lh; 
-        fout = [alff_dir '/lh.alff.sm' num2str(fwhm) '.' fsaverage '.nii.gz'];
+        fout = [alff_dir '/lh.alff.sm' num2str(fwhm(smid)) '.' fsaverage '.nii.gz'];
         err = save_nifti(surfMASKhdr_lh, fout);
 %         tmp = zeros(size(cALFF_lh)) ; tmp(idx_lh_mask) = zscore(cALFF_lh(idx_lh_mask));
 %         surfMASKhdr_lh.vol = tmp; fout = [alff_dir '/lh.alff.z.sm' num2str(fwhm) '.' fsaverage '.nii.gz'];
 %         err = save_nifti(surfMASKhdr_lh, fout);
         %ALFF slow4
         surfMASKhdr_lh.vol = cALFFs4_lh; 
-        fout = [alff_dir '/lh.alff.slow4.sm' num2str(fwhm) '.' fsaverage '.nii.gz'];
+        fout = [alff_dir '/lh.alff.slow4.sm' num2str(fwhm(smid)) '.' fsaverage '.nii.gz'];
         err = save_nifti(surfMASKhdr_lh, fout);
 %         tmp = zeros(size(cALFF_lh)) ; tmp(idx_lh_mask) = zscore(cALFFs4_lh(idx_lh_mask));
 %         surfMASKhdr_lh.vol = tmp; fout = [alff_dir '/lh.alff.slow4.z.sm' num2str(fwhm) '.' fsaverage '.nii.gz'];
@@ -105,14 +106,14 @@ for k=1:nsubs
 %         err = save_nifti(surfMASKhdr_lh, fout);
         %FALFF
         surfMASKhdr_lh.vol = cFALFF_lh; 
-        fout = [alff_dir '/lh.falff.sm' num2str(fwhm) '.' fsaverage '.nii.gz'];
+        fout = [alff_dir '/lh.falff.sm' num2str(fwhm(smid)) '.' fsaverage '.nii.gz'];
         err = save_nifti(surfMASKhdr_lh, fout);
 %         tmp = zeros(size(cFALFF_lh)) ; tmp(idx_lh_mask) = zscore(cFALFF_lh(idx_lh_mask));
 %         surfMASKhdr_lh.vol = tmp; fout = [alff_dir '/lh.falff.z.sm' num2str(fwhm) '.' fsaverage '.nii.gz'];
 %         err = save_nifti(surfMASKhdr_lh, fout);
         %FALFF slow4
         surfMASKhdr_lh.vol = cFALFFs4_lh; 
-        fout = [alff_dir '/lh.falff.slow4.sm' num2str(fwhm) '.' fsaverage '.nii.gz'];
+        fout = [alff_dir '/lh.falff.slow4.sm' num2str(fwhm(smid)) '.' fsaverage '.nii.gz'];
         err = save_nifti(surfMASKhdr_lh, fout);
 %         tmp = zeros(size(cFALFF_lh)) ; tmp(idx_lh_mask) = zscore(cFALFFs4_lh(idx_lh_mask));
 %         surfMASKhdr_lh.vol = tmp; fout = [alff_dir '/lh.falff.slow4.z.sm' num2str(fwhm) '.' fsaverage '.nii.gz'];
@@ -135,8 +136,8 @@ for k=1:nsubs
     surfMASKhdr_rh = load_nifti(fmask); %idx_rh_mask = find(surfMASKhdr_rh.vol > 0);
     surfMASKhdr_rh.datatype = 16; %float
     surfMASKhdr_rh.descrip = ['CCS ' date];
-    for fwhm = [0]
-        fname = [func_dir '/' rest_name '.pp.nofilt.sm' num2str(fwhm) '.' fsaverage '.rh.nii.gz'];
+    for smid=1:2
+        fname = [func_dir '/' rest_name '.pp.nofilt.sm' num2str(fwhm(smid)) '.' fsaverage '.rh.nii.gz'];
         surfPPhdr_rh = load_nifti(fname);
         %amplitude
         cALFF_rh = zeros(nVertices_rh,1); cFALFF_rh = zeros(nVertices_rh,1);
@@ -145,7 +146,7 @@ for k=1:nsubs
         cPLFF_rh = zeros(nVertices_rh,1); cFPLFF_rh = zeros(nVertices_rh,1);
         cPLFFs4_rh = zeros(nVertices_rh,1); cFPLFFs4_rh = zeros(nVertices_rh,1);
         for ii=1:nVertices_rh
-            if ~mod(ii,500); 
+            if ~mod(ii,500) 
                 disp(['Completing ' num2str(ii/nVertices_rh*100) ...
                 ' percent vertices processed in right hemisphere ...'])
             end
@@ -157,14 +158,14 @@ for k=1:nsubs
         end
         %ALFF
         surfMASKhdr_rh.vol = cALFF_rh; 
-        fout = [alff_dir '/rh.alff.sm' num2str(fwhm) '.' fsaverage '.nii.gz'];
+        fout = [alff_dir '/rh.alff.sm' num2str(fwhm(smid)) '.' fsaverage '.nii.gz'];
         err = save_nifti(surfMASKhdr_rh, fout);
 %         tmp = zeros(size(cALFF_rh)) ; tmp(idx_rh_mask) = zscore(cALFF_rh(idx_rh_mask));
 %         surfMASKhdr_rh.vol = tmp; fout = [alff_dir '/rh.alff.z.sm' num2str(fwhm) '.' fsaverage '.nii.gz'];
 %         err = save_nifti(surfMASKhdr_rh, fout);
         %ALFF slow4
         surfMASKhdr_rh.vol = cALFFs4_rh; 
-        fout = [alff_dir '/rh.alff.slow4.sm' num2str(fwhm) '.' fsaverage '.nii.gz'];
+        fout = [alff_dir '/rh.alff.slow4.sm' num2str(fwhm(smid)) '.' fsaverage '.nii.gz'];
         err = save_nifti(surfMASKhdr_rh, fout);
 %         tmp = zeros(size(cALFF_rh)) ; tmp(idx_rh_mask) = zscore(cALFFs4_rh(idx_rh_mask));
 %         surfMASKhdr_rh.vol = tmp; fout = [alff_dir '/rh.alff.slow4.z.sm' num2str(fwhm) '.' fsaverage '.nii.gz'];
@@ -183,14 +184,14 @@ for k=1:nsubs
 %         err = save_nifti(surfMASKhdr_rh, fout);
         %FALFF
         surfMASKhdr_rh.vol = cFALFF_rh; 
-        fout = [alff_dir '/rh.falff.sm' num2str(fwhm) '.' fsaverage '.nii.gz'];
+        fout = [alff_dir '/rh.falff.sm' num2str(fwhm(smid)) '.' fsaverage '.nii.gz'];
         err = save_nifti(surfMASKhdr_rh, fout);
 %         tmp = zeros(size(cFALFF_rh)) ; tmp(idx_rh_mask) = zscore(cFALFF_rh(idx_rh_mask));
 %         surfMASKhdr_rh.vol = tmp; fout = [alff_dir '/rh.falff.z.sm' num2str(fwhm) '.' fsaverage '.nii.gz'];
 %         err = save_nifti(surfMASKhdr_rh, fout);
         %FALFF slow4
         surfMASKhdr_rh.vol = cFALFFs4_rh; 
-        fout = [alff_dir '/rh.falff.slow4.sm' num2str(fwhm) '.' fsaverage '.nii.gz'];
+        fout = [alff_dir '/rh.falff.slow4.sm' num2str(fwhm(smid)) '.' fsaverage '.nii.gz'];
         err = save_nifti(surfMASKhdr_rh, fout);
 %         tmp = zeros(size(cFALFF_rh)) ; tmp(idx_rh_mask) = zscore(cFALFFs4_rh(idx_rh_mask));
 %         surfMASKhdr_rh.vol = tmp; fout = [alff_dir '/rh.falff.slow4.z.sm' num2str(fwhm) '.' fsaverage '.nii.gz'];

@@ -28,7 +28,7 @@ use_spec_template=$6
 template_name=$7
 ## if remove global signal
 global_signal_removal=$8
-## full path of CCS scripts directory
+## full path of LFCD scripts directory
 ccs_dir=$9
 ## name of reg dir
 reg_dir_name=${10}

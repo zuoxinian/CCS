@@ -101,7 +101,7 @@ for k=1:nsubs
             %degree
             if cent_idx(1)
                 disp(['Computing DC at correlation = ' num2str(corr_thr) ' ...'])
-                %% bin
+                % bin
                 tmpdc = IPN_centDegree(R_bin);
                 if nnz(tmpdc)<(length(tmpdc)-1)
                     node_alone(n) = 1;

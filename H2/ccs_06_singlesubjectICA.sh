@@ -42,7 +42,7 @@ FWHM=6 ; sigma=`echo "scale=10 ; ${FWHM}/2.3548" | bc`
 
 if [ $# -lt 9 ];
 then
-        echo -e "\033[47;35m Usage: $0 analysis_dir subject_list rest_name anat_dir_name func_dir_name do_refine_reg numIC standard_template fsaverage \033[0m"
+        echo -e "\033[47;35m Usage: lfcd_06_singlesubjectICA.sh analysis_dir subject_list rest_name anat_dir_name func_dir_name do_refine_reg numIC standard_template fsaverage \033[0m"
         exit
 fi
 
