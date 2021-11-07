@@ -1,4 +1,4 @@
-function Z = IPN_FisherZtest(r1,r2, N1, N2)
+function [Z, p] = IPN_FisherZtest(r1,r2, N1, N2)
 %% Author: Xi-Nian Zuo
 
 if ((abs(r1)-1)*(abs(r2)-1)) == 0
@@ -8,7 +8,8 @@ else
     fs_z2 = atanh(r2);
     Z = (fs_z1 - fs_z2)/ sqrt(1 / (N1 - 3) + 1 / (N2 - 3));
 end
-
+p = 1-cdf('Normal',abs(Z),0,1);
 if isnan(Z)
     Z = 0;
+    p = 1;
 end

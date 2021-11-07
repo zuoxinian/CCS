@@ -1,4 +1,4 @@
-function PR = ccs_core_graphnbtw(A,r)
+function PR = ccs_core_graphnbtw2(A,r)
 %CCS_CORE_GRAPHNBTW Number of non-backtracking walks on an undirected graph
 %   Inputs:
 %     A - adjacency matrix
@@ -30,7 +30,9 @@ if issymmetric(A)
     if r>2
         %updated in 03/27/2020
         PR1 = ccs_core_graphnbtw(A,r-2);
+        PR1 = PR1 - diag(diag(PR1));
         PR2 = ccs_core_graphnbtw(A,r-1);
+        PR2 = PR2 - diag(diag(PR2));
         PR = A*PR2 - (D-eye(size(A)))*PR1;
     end
 else
