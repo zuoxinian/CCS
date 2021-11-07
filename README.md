@@ -63,14 +63,14 @@ subject=/your_project_dir/CCS/001
 
 First, structural image pre-processing is performed, including steps such as denoising and skull stripping.
 ```bash
-$CCS_APP/ccs_anat_01_pre_freesurfer.sh $CCS_DIR $SUBJECTS_DIR $subject
+$CCS_APP/sampleScripts/ccs_anat_01_pre_freesurfer.sh $CCS_DIR $SUBJECTS_DIR $subject
 
 ```
 Once these steps have been completed, the skull stripping effect needs to be checked to determine whether to continue with the next step of data processing.
 The second two steps of the CCS structural image pre-processing are the cortical reconstruction pipeline and the structural image alignment pipeline, as the following commands.
 ```bash
-$CCS_APP/ccs_anat_02_freesurfer.sh $CCS_DIR $SUBJECTS_DIR $subject
-$CCS_APP/ccs_anat_03_postfs.sh $CCS_DIR $SUBJECTS_DIR $subject
+$CCS_APP/sampleScripts/ccs_anat_02_freesurfer.sh $CCS_DIR $SUBJECTS_DIR $subject
+$CCS_APP/sampleScripts/ccs_anat_03_postfs.sh $CCS_DIR $SUBJECTS_DIR $subject
 ```
 
 ### 4.4 Resting-state functional image pre-processing
@@ -89,5 +89,5 @@ After modifying the contents of the template , the following command can be run 
 CCS_DIR=/your_project_dir/CCS
 subject=001
 mkdir -p $CCS_DIR/$subject/scripts/
-sed "s/CCSsubjectname/$subject/" $CCS_APP/template_preproc_funcpart.sh > $CCS_DIR/$subject/scripts/ccs_preproc_funcpart.sh
+sed "s/CCSsubjectname/$subject/" $CCS_APP/sampleScripts/template_preproc_funcpart.sh > $CCS_DIR/$subject/scripts/ccs_preproc_funcpart.sh
 $CCS_DIR/$subject/scripts/ccs_preproc_funcpart.sh
