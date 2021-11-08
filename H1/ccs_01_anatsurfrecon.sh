@@ -20,7 +20,9 @@ dir=$2
 anat=$3
 ## name of anat directory
 anat_dir_name=$4
-## if use GPU
+## if use GPU: FS team no longer support [further] CUDA or GPU development because of lack of resources and difficulty, 
+## in preference to using OpenMP, which uses CPU cores. The team will continue to support the existing GPU CUDA code 
+## that runs on recon-all with the -use-gpu switch. By support, keeping it running with each new nvidia cuda driver release as best as we can.
 use_gpu=$5
 
 ## directory setup
