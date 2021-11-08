@@ -19,7 +19,7 @@ CCS  can be used on Linux/Unix and Mac systems.  You also need to install:
 * Python 3.0 or Above. We suggest you to install Anaconda toolbox https://www.anaconda.com/products/individual#Downloads
 
 ## 2. Requirements 
-CCS needs to install these neuroimage tools in order to run ourt pipeline:
+CCS needs to install these neuroimage tools in order to run ourt pipeline (use the most recent versions):
 * AFNI https://afni.nimh.nih.gov/pub/dist/doc/htmldoc/background_install/main_toc.html
 * FreeSurfer https://surfer.nmr.mgh.harvard.edu/
 * FSL  https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation
