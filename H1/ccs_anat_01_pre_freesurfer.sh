@@ -65,7 +65,7 @@ if [ ! -f ${anat_dir}/T1_crop_sanlm_pre_mask.nii.gz ]
 then
 	echo "############# making mask by deep_bet ###############"
 	#generating mask
-	docker run -v ${anat_dir}:/data -v ${CCS_APP}/Models:/Models -v ${anat_dir}:/output sandywangrest/deepbet muSkullStrip.py -in /data/T1_crop_sanlm.nii.gz -model /Models/model-04-epoch -out /output
+	docker run -v ${anat_dir}:/data -v ${CCS_APP}/models:/Models -v ${anat_dir}:/output sandywangrest/deepbet muSkullStrip.py -in /data/T1_crop_sanlm.nii.gz -model /Models/model-04-epoch -out /output
 	#create qc pics
 	mkdir -p ${anat_dir}/qc
 	overlay 1 1 ${anat_dir}/T1_crop_sanlm.nii.gz -a ${anat_dir}/T1_crop_sanlm_pre_mask.nii.gz 1 1 ${anat_dir}/qc/T1_rendermask.nii.gz
