@@ -1,0 +1,770 @@
+#!/bin/bash
+
+#Sun Grid Engine configuration options
+#shell name
+#$ -S /bin/bash
+#write .e and .o to the working directory
+#$ -cwd
+#merge stdout and stderr
+#$ -j y
+#import environment variables
+#$ -V
+
+#rev. 12/26/2017: Ubuntu/Fedora compatibility:
+# -fixed atlas dir location;
+# -fixed hexadecimal output of flirt and convert_xfm
+# -fixed argument parsing code.
+
+##############################################################
+#
+# De-facing (based on normalized anterior filtering 
+# and FSL atlas registration
+# Comments: Mikhail Milchenko, mmilch@wustl.edu
+#
+
+#fix for fedora/ubuntu systems.
+#in 1: matrix file
+function matrix_to_decimal
+{
+	local fil="$1" tmp=`mktemp` line number
+	while read line; do
+	    for number in $line; do
+	        printf "%f " "$number" >> $tmp
+    	    done
+        echo "" >> $tmp
+	done < $fil
+	mv $tmp $fil
+}
+
+########################################################################
+# Mask a scan using atlas mask.
+# 1 - inroot
+function mask_file
+{
+	local in=$1
+	if [ ! -f atl_mask.img ]; then return; fi
+	if [ ! -f ${ATLAS}_to_${in}.fslmat ]; then echo "mask_face ERROR: atlas transform for $in not found"; exit -1; fi
+	flirt -in atl_mask -ref $in -init ${ATLAS}_to_${in}.fslmat -applyxfm -out atl_mask_on_${in}
+	fslmaths $in -mas atl_mask_on_${in} ${in}_masked
+	mv $in.img ${in}_unmasked.img; mv ${in}.hdr ${in}_unmasked.hdr
+	mv ${in}_masked.img ${in}.img; mv ${in}_masked.hdr ${in}.hdr
+}
+
+########################################################################
+# Make axes coordinates file using transform from altas to image space.
+# 1 - inroot
+# 2 - atlas used
+# 3 - roi file in atlas space
+# 4 - fslmat transform file from atlas to inroot
+# 5 - out coord file name.
+
+function make_coord_file
+{
+	local in=$1
+	local atl=$2
+	local roifile=$3
+	local trans=$4
+	local out=$5
+	img2imgcoord -src $atl -dest $in -xfm $trans $roifile > $out
+	sed -i".bak" '1d' $out
+}
+
+
+
+#Run a single region face masking in MATLAB, with coordinate file supplied.
+#input:
+#1 - inroot
+#2 - outroot
+#3 - coordinates file.
+#4 - saved ROI label.
+#5 - string of other parameters.
+
+function run_masking_coord
+{
+	local rt=$1
+	local out=$2
+	local coords=$3
+	local roi_label=$4
+	local params=$5
+	echo "mask_surf_auto('$rt','coords','$coords','outroot','$out','roi_label','$roi_label',$params);"
+	echo $msa "$rt" coords "$coords" outroot "$out" roi_label "$roi_label" $params 
+	$msa "$rt" coords "$coords" outroot "$out" roi_label "$roi_label" $params &> ${out}_matlab_`date +%H%M%S`.out
+}
+
+# rename_output ${out[i]} ${src[i]} $method
+# bulk rename the final processing output
+# Input: 
+# 1 - processed name
+# 2 - original name
+# 3 - method
+
+function rename_output
+{
+	local pr=$1
+	local rt=$2
+	local methd=$3
+	targ_im=${rt}_full_${methd}
+	targ_qc=${rt}_${methd}
+	if [ ! -f "${pr}.hdr" -o ! -f "${pr}.img" -o ! -f "${pr}_${methd}.png" -o ! -f "${pr}_${methd}_surf.png" ]; then
+		echo "mask_face ERROR: Face masking failed for $pr, exiting"
+		exit -1
+	fi		
+	mv ${pr}.hdr $targ_im.hdr
+	mv ${pr}.img $targ_im.img
+	mv ${pr}_${methd}.png ${targ_qc}.png
+	mv ${pr}_${methd}_surf.png ${targ_qc}_surf.png
+	if (( mni != 0 )); then 
+		convert ${targ_qc}_surf.png -rotate 180 ${targ_qc}_surf_r.png
+		mv ${targ_qc}_surf_r.png ${targ_qc}_surf.png
+	fi
+}
+
+#perform archiving and DICOM conversion.
+#input:
+#1 - input study name
+#2 - output Analyze file name that contains masked volume
+#3 - directory where to write DICOM output
+#4 - directory containing processing files
+#global - create_zip (zip the output)
+#global - an (analyze format only, don't create DICOM)
+
+function write_out
+{
+local inrt=$1
+	local src=`basename $inrt`
+	local rt_out=$2
+	local outdcmdir=$3
+	local procdir=$4
+	local s=${src#study}
+	local k
+	if [ -z "$an" ]; then
+		flips=""
+		mkdir -p $outdcmdir
+		#if the original was transformed to standard space, transform back.
+		if (( mni == 1 )); then
+			if [ -f "std2$src.mat" -a -f "${src}_nii_orig.img" -a -f "$src.img" -a -f "${src}_d2a.img" ]; then
+				flp=(`cmpanalyze -q -f ${src}_d2a ${src}_nii_orig`)
+				if (( ${flp[3]} != 1 )); then
+					echo "mask_face ERROR: cannot transform from standard to native space, exiting"
+					exit -1
+				fi
+				fslcpgeom $procdir/$src $procdir/$rt_out
+				flirt -applyxfm -init std2$src.mat -in $procdir/$rt_out -ref ${src}_nii_orig -out $procdir/${src}_masked_nii_orig
+				rt_out=${src}_masked_nii_orig
+				#add flips
+				for (( k=0; k<3; k++)); do
+					if (( ${flp[k]} > 0 )); then
+						case "$k" in
+							"0") flips="$flips -x";;
+							"1") flips="$flips -y";;
+							"2") flips="$flips -z";;
+						esac
+					fi
+				done
+			else
+				echo "mask_face ERROR: transform to standard space failed, exiting"
+				exit -1
+			fi
+		fi
+		analyze2dcm $flips -o $outdcmdir $inrt $procdir/$rt_out
+		if [ -n "$create_zip" ]; then
+			pushd $outdcmdir &> /dev/null
+			zip $s.zip * 
+			mv *.zip ../
+			popd &> /dev/null
+		fi
+	fi
+}
+#Run a single region face masking in MATLAB, with ROI file supplied.
+#input:
+#1 - inroot
+#2 - outroot
+#3 - ROI file name
+#4 - output ROI label.
+#5 - other parameters
+function run_masking_roi_file
+{
+	local rt=$1
+	local out=$2
+	local file=$3
+	local roi_label=$4
+	local params=$5
+
+	exec 6< $file
+	read p_out <&6
+	read p_in <&6
+	read norm <&6
+	exec 6<&-
+
+	echo "mask_surf_auto('$rt','outroot','$out','p_out',[$p_out],'p_in',[$p_in],'normal',[$norm],'roi_label','$roi_label',$params);"
+	echo $msa "$rt" outroot "$out" p_out "[$p_out]" p_in "[$p_in]" normal "[$norm]" roi_label "$roi_label" $params
+	$msa "$rt" outroot "$out" p_out "[$p_out]" p_in "[$p_in]" normal "[$norm]" roi_label "$roi_label" $params &> ${out}_matlab_`date +%H%M%S`.out
+
+}
+#Run a single region face masking in MATLAB, with ROI coordinates and vertical supplied.
+#input:
+#1 - inroot
+#2 - outroot
+#3 - outer ROI vertex
+#4 - inner ROI vertex
+#5 - ROI vertical
+#6 - saved ROI label.
+#7 - other parameters
+function run_masking_roi
+{
+	local rt=$1
+	local out=$2
+	local p_out=$3
+	local p_in=$4
+	local ver=$5
+	local roi_label=$6
+	local params=$7
+	echo "mask_surf_auto('$rt','outroot','$out','p_out',[$p_out],'p_in',[$p_in],'vertical',$ver,'roi_label','$roi_label',$params);"
+	echo $msa "$rt" outroot "$out" p_out "[$p_out]" p_in "[$p_in]" vertical "[$ver]" roi_label "$roi_label" $params
+	$msa "$rt" outroot "$out" p_out "[$p_out]" p_in "[$p_in]" vertical "[$ver]" roi_label "$roi_label" $params &> ${out}_matlab_`date +%H%M%S`.out
+}	
+########################################
+# Evaluate fp arithmetics
+function float_eval()
+{
+    local stat=0
+    local float_scale=2
+    local result=0.0
+    if [[ $# -gt 0 ]]; then
+        result=$(echo "scale=$float_scale; $*" | bc -q 2>/dev/null)
+        stat=$?
+        if [[ $stat -eq 0  &&  -z "$result" ]]; then stat=1; fi
+    fi
+    echo $result
+    return $stat
+}
+
+#split tokenized string 
+#input 1: string
+#input 2: token
+function split_str
+{
+	local str="$1"
+	local token="$2"
+	arr=`echo "$str" | tr "$token" " "`
+	echo $arr
+}
+#Configure parameters and run face masking on a secondary study.
+#input:
+#1 - inroot
+#2 - reference root
+#3- common parameters
+# exMask - global variable containing the name of exclusion mask file name (can be empty).
+# output:
+# the name of the final output file.
+
+function run_masking_secondary
+{
+
+	local rt_in=$1
+	local rt_ref=$2
+	local params=$3
+	local ex_mask_ref=$exMask
+	local i=1
+	local temp_in=$rt_in	
+	
+	#1. coregister the inroot to the reference.
+	local in_ref=${rt_in}_to_${rt_ref}.fslmat
+	local ref_in=${rt_ref}_to_${rt_in}.fslmat	
+	echo time flirt -ref $rt_ref -in $rt_in -out ${rt_in}_on_${rt_ref} -omat $in_ref	
+	time flirt -ref $rt_ref -in $rt_in -out ${rt_in}_on_${rt_ref} -omat $in_ref -dof 6		
+	matrix_to_decimal $in_ref
+
+	if [ ! -f "$in_ref" ]; then echo "mask_face ERROR: atlas registration failed, exiting"; exit -1; fi
+	#2. Invert the resultant transform to move from reference to rt_in.
+	convert_xfm -omat $ref_in -inverse $in_ref
+	matrix_to_decimal $ref_in
+
+	#3. Compute atlas to rt_in transform.
+	convert_xfm -omat ${ATLAS}_to_${rt_in}.fslmat -concat $ref_in ${ATLAS}_to_${rt_ref}.fslmat 
+	matrix_to_decimal ${ATLAS}_to_${rt_in}.fslmat
+		
+	#3.5. (optionally) apply the atlas mask. Need be called after atlas transform has been computed.
+	mask_file ${rt_in}
+		
+	#3. Transform the object mask.
+	obj_mask_in=${rt_in}_obj_mask
+	if (( mni == 1 )); then
+#		cphdr ${rt_in} $obj_mask_in
+#		cphdr ${rt_ref} ${rt_ref}_obj_mask
+		fslcpgeom ${rt_in} $obj_mask_in
+		fslcpgeom ${rt_ref} ${rt_ref}_obj_mask
+	fi	
+	flirt -in ${rt_ref}_obj_mask -ref $rt_in -applyxfm -init $ref_in -out ${obj_mask_in}
+	#4. (optional) Transform the exclusion mask. 
+	if [ -f "$ex_mask_ref.img" ]; then
+		ex_mask_in=${rt_in}_exmask
+		flirt -in ${ex_mask_ref} -ref $rt_in -applyxfm -init $ref_in -out $ex_mask_in
+	else 
+		ex_mask_in=""
+	fi
+	initparam=0
+	
+	for f in `ls ${rt_ref}_*.lst`; do
+		# compute the axis file.
+		img2imgcoord -src $rt_ref -dest $rt_in -xfm $ref_in $f > ${rt_in}_$f
+		sed -i".bak" '1d' ${rt_in}_$f
+		
+		#run the epicryption
+		temp_out=${rt_in}_${i}
+		if [ -n "$ex_mask_in" ]; then 
+			prm="exmask $ex_mask_in $params"
+		else
+			prm="$params"
+		fi
+		echo "mask_surf_auto('$temp_in','coords','${rt_in}_$f','outroot','$temp_out','roi_label','$roi_label','head_mask','$obj_mask_in',$prm);"
+		echo $msa "$temp_in" coords "${rt_in}_$f" outroot "$temp_out" roi_label "$roi_label" head_mask "$obj_mask_in" $prm
+		$msa "$temp_in" coords "${rt_in}_$f" outroot "$temp_out" roi_label "$roi_label" head_mask "$obj_mask_in" $prm &> ${out}_matlab_`date +%H%M%S`.out
+		temp_in=$temp_out
+		(( i++ ))
+	done
+	rename_output $temp_out $rt_in $method
+	return
+	
+	while [ -f "${rt_ref}_${i}.roi" -a -f "${rt_ref}_obj_mask.img" ]; do
+		#5. Transform the ROI coordinates.
+		roi_in=${rt_in}_${i}.roi
+		img2imgcoord -src $rt_ref -dest $rt_in -xfm $ref_in ${rt_ref}_${i}.roi > $roi_in	
+		sed -i".bak" '1d' $roi_in
+		sed -i".bak" '4d' $roi_in
+		#transform the origin point
+		echo "0 0 0 1" > zero.roi
+		img2imgcoord -src $rt_ref -dest $rt_in -xfm $ref_in zero.roi > zero_t.roi
+		sed -i".bak" '1d' zero_t.roi
+		sed -i".bak" '2d' zero_t.roi
+		
+		exec 6< $roi_in
+		read p_out <&6
+		read p_in <&6
+		read p1 <&6
+		exec 6<&-
+		# find the difference between the normal vector end and origin point in the new system.
+		p1=( $p1 )
+		p0=( `cat zero_t.roi` )
+		norm[0]=`float_eval ${p1[0]}-\(${p0[0]}\)`
+		norm[1]=`float_eval ${p1[1]}-\(${p0[1]}\)`
+		norm[2]=`float_eval ${p1[2]}-\(${p0[2]}\)`
+		norm="${norm[*]}"
+		#save parameters for (later) snapshot.
+		if (( initparam == 0 )); then
+			orig_p_in=$p_in
+			orig_p_out=$p_out
+			orig_norm="$norm"
+			initparam=1
+		fi
+		
+		#6. Finally, run the epicryption (in cycle).
+		temp_out=${rt_in}_${i}
+		
+		if [ -n "$ex_mask_in" ]; then 
+			prm="exmask $ex_mask_in $params"
+		else
+			prm="$params"
+		fi
+		echo "mask_surf_auto('$temp_in','outroot','$temp_out','p_out',[$p_out],'p_in',[$p_in],'normal',[$norm],'head_mask','$obj_mask_in',$prm);"
+		echo $msa "$temp_in" outroot "$temp_out" p_out "[$p_out]" p_in "[$p_in]" normal "[$norm]" head_mask "$obj_mask_in" $prm
+		$msa "$temp_in" outroot "$temp_out" p_out "[$p_out]" p_in "[$p_in]" normal "[$norm]" head_mask "$obj_mask_in" $prm &> ${temp_out}_matlab_`date +%H%M%S`.out
+		temp_in=$temp_out
+		(( i++ ))
+	done
+	#re-generate 3D snapshot with the orientation of the 1st ROI.
+	echo "mask_surf_auto('$temp_out','outroot','$temp_out','p_out',[$orig_p_out],'p_in',[$orig_p_in],'normal',[$orig_norm],'head_mask','$obj_mask_in',$prm,'snapshotOnly',1);"
+	msa "$temp_out" outroot "$temp_out" p_out "[$orig_p_out]" p_in "[$orig_p_in]" normal "[$orig_norm]" head_mask "$obj_mask_in" $prm snapshotOnly 1 &> ${temp_out}_snapshot_matlab_`date +%H%M%S`.out
+}
+
+function check_dependensies
+{
+	if [ -z "$MASKFACE_MCR_HOME" ]; then
+		echo "Please set MASKFACE_MCR_HOME before running."
+		exit -1
+	fi
+	if [ -z "$MASKFACE_MCR_HOME" ]; then
+		echo "Please set MASKFACE_MCR_HOME before running."
+		exit -1
+	fi
+	if [ -z "FSLDIR" ]; then 
+		echo "please set FSLDIR before running."
+		exit -1
+	fi
+	cmds=(dcm2nii analyze2dcm $MASKFACE_MCR_HOME/application/run_mask_surf_auto.sh flirt)
+	for c in ${cmds[*]}; do
+		vr=`command -v $c`
+		if [ -z "$vr" ]; then 
+			echo "required command $c not found on path, exiting"
+			exit -1
+		fi
+	done
+}
+
+############################################################################
+# starting the main script.
+#
+#
+
+check_dependensies
+
+msa="$MASKFACE_MCR_HOME/application/run_mask_surf_auto.sh $MCR_HOME/v85"
+
+step=1.0
+if [ -f "maskface.params" ]; then source maskface.params; fi
+echo "mask_face_nomatlab ver. 10/30/2017"
+
+if [ -z "$1" ]; then
+	echo "Usage: mask_face <scan1>[,scan2,...,scanN] [options]"
+	echo "Options:"
+	echo "	-a 		input/output is Analyze [DICOM is default]"
+	echo "	-o <path>	output DICOM root directory (default is pwd)"
+	echo "	-m <method>	obscuring method: coating, blur, [normfilter]"
+	echo "	-t <float>	mask threshold"	
+	echo "	-s <[0.1-3.0]float>"
+	echo "			grid step coefficient, [$step] is default."
+	echo "	-p <prefix>	filename prefix of Analyze output."
+	echo "	-v <0|1|2>	speed vs. more intermediate output. [0] fastest, 2 most detailed"
+	echo "	-z		if output is DICOM, create zipped copy"
+	echo "	-b <0|1>	[0]. If set to 1, use FSL's BET to exclude brain mask"
+	echo "	-d		current date-time in temp directory name"
+	echo "	-e <0|1>	[0] Mask ears"
+	echo "	-nil		use optimized NIL Talairach atlas (MNI152 is the default)"
+	echo "	-am		only output voxels inside the atlas mask"
+	echo "Advanced:"	
+	echo "	-um <0|1>	[0] use manual ROIs. If explicitly set to 0, then -roi, -ver, -rf options will be ignored."
+	echo "	-r <ref>	use <ref> (one of the scans) as reference to coregister "
+	echo "			all other scans to it. Use ROI's based on <ref>."
+	echo "	-roi <x0,y0,z0-x1,y1,z1[_x01,y01,z01-x11,y11,z11_...]>" 
+	echo "			roi(s) to mask (must be in the ref space)."
+	echo "	-ver <0|1|2>[,0|1|2,...]"
+	echo "			if roi(s) are set, direction normals for each roi to surface"
+	echo "			0 - left/right, 1 - top/bottom, 2 - near/far"
+	echo "			Required if there is more than one scan to deface."
+	echo "	-rf <ROI file1[,ROI file 2,...]>"
+	echo "			files specifying ROI(s)."
+	echo "NOTE: Define ROI's with either combined -roi and -ver options or with -rf option"
+	exit 0
+fi
+
+FSLOUTPUTTYPE=NIFTI_PAIR
+export FSLOUTPUTTYPE
+#set -x
+unset ovr cm sg create_zip
+thresh=-1
+
+method="normfilter"
+
+args=$*
+args=( $args )
+v=0
+sg=1
+src=$1
+if [ -f "$src" ]; then src=`cat $src`; fi
+src=(`split_str "$src" ","`)
+
+procdir=maskface;brainmask=0;manual_roi=0;mask_atlas=0
+mni=1
+unset an exMask outdir brainmask tdate
+#set -x
+
+for((i=1; i<${#args[*]}; i++)); do
+	if [ "${args[i]}" == "-d" ]; then tdate="1"; continue; fi	
+	if [ "${args[i]}" == "-a" ]; then an="1"; continue; fi	
+	if [ "${args[i]}" == "-z" ]; then create_zip="1"; continue; fi
+	if [ "${args[i]}" == "-nil" ]; then mni=0; continue; fi		
+	if [ "${args[i]}" == "-z" ]; then create_zip="1"; continue; fi	
+	if [ "${args[i]}" == "-b" ]; then (( i++ )); brainmask=${args[i]}; continue; fi
+	if [ "${args[i]}" == "-e" ]; then (( i++ )); maskears=${args[i]}; continue; fi
+	if [ "${args[i]}" == "-o" ]; then (( i++ )); outdir=${args[i]}; continue; fi
+	if [ "${args[i]}" == "-cost" ]; then (( i++ ));	cost=${args[i]}; continue; fi
+	if [ "${args[i]}" == "-t" ]; then (( i++ )); thresh=${args[i]};	continue; fi
+	if [ "${args[i]}" == "-p" ]; then (( i++ )); rt=${args[i]}; continue; fi
+	if [ "${args[i]}" == "-x" ]; then (( i++ )); exMask=${args[i]}; continue; fi
+	if [ "${args[i]}" == "-m" ]; then (( i++ )); method=${args[i]}; continue; fi
+	if [ "${args[i]}" == "-v" ]; then (( i++ )); v=${args[i]}; continue; fi
+	if [ "${args[i]}" == "-s" ]; then (( i++ )); step=${args[i]}; continue; fi
+	if [ "${args[i]}" == "-r" ]; then (( i++ )); ref=${args[i]}; continue; fi	
+	if [ "${args[i]}" == "-am" ]; then mask_atlas=1; continue; fi		
+	if [ "${args[i]}" == "-um" ]; then (( i++ )); manual_roi=${args[i]}; continue; fi	
+	if [ "${args[i]}" == "-rf" ]; then
+		(( i++ )); 
+		roifiles=(`split_str ${args[i]} ","`)
+		continue; 
+	fi	
+	if [ "${args[i]}" == "-roi" ]; then 
+		(( i++ ))
+		rois=(`split_str ${args[i]} "_"`)
+		for ((j=0; j<${#rois[*]};j++));do
+			pts=(`split_str ${rois[j]} "-"`)
+			pt_out[j]=${pts[0]}
+			pt_in[j]=${pts[1]}
+		done
+		continue	
+	fi
+	if [ "${args[i]}" == "-ver" ]; then (( i++ )); vers=(`split_str ${args[i]} ","`);
+ continue; fi
+done
+
+#set -x
+# imp_ref variable may be set in maskface.params file by external routines that resolve the 
+# reference scan. Overwrites the ref variable.
+nsrc=${#src[*]}
+
+if [ -n "$imp_ref" ]; then 
+	ref=study$imp_ref; 
+	found_ref=0
+	for ((i=0; i<${#src[*]}; i++)); do
+		if [ "${src[i]}" == "$ref" ]; then found_ref=1; break; fi
+	done
+	if (( found_ref == 0 )); then src=( $ref ${src[*]} ); (( nsrc++ )); fi
+fi
+
+echo ${src[*]}
+#set -x
+#check if ROI is set manually. 
+
+nroi=${#rois[*]}
+nver=${#vers[*]}
+npt_in=${#pt_in[*]}
+npt_out=${#pt_out[*]}
+nrfiles=${#roifiles[*]}
+if (( manual_roi > 0 )); then
+	if (( nroi>0 && nroi==nver && nroi==npt_in && nroi==npt_out )); then manual_roi=1
+	elif (( nrfiles>0 )); then manual_roi=2
+	elif ((nroi>0 || nver>0 )); then echo "mask_face ERROR: numbers of ROI verticals and points don't match, exiting"; exit -1; fi
+fi
+
+if (( nsrc>1 )); then
+	if [ -z "$ref" ]; then 
+		echo "mask_face ERROR: multiple scans specified, but reference scan is not defined, exiting." 
+		exit -1
+	else 
+		rt=$ref
+	fi
+fi
+
+#processing dir.
+if [ -n "$tdate" ]; then 
+	procdir=${procdir}_`date +%Y%m%d_%H%M`
+fi
+mkdir -p ${procdir}
+
+#convert data from DICOM
+if [ -z "$rt" ]; then rt=$src; fi
+if [ -z "$outdir" ]; then outdir=`pwd`/DICOM_DEFACED; fi
+#set -x
+if [ -z "$an" ]; then	
+	for ((i=0;i<$nsrc;i++)); do
+		st=${src[i]}
+		if [ ! -d "$st" ]; then	echo "mask_face ERROR: input directory \"$st\" does not exist, exiting"; exit -1; fi
+		bst=`basename $st`
+		if (( mni == 0 )); then
+			dcm2analyze -D $st -A $bst
+		else
+			#convert target to standard space but also keep inverse matrix and raw DICOM voxels.
+			dcm2analyze -D $st -A ${bst}_d2a
+			dcm_nii $st ${bst}_nii_orig -m ${bst}2std.mat
+			nii_img ${bst}_nii_orig 
+			rm -rf ${bst}_nii_orig.nii
+			fslreorient2std ${bst}_nii_orig ${bst}_nii_std
+			nii_img ${bst}_nii_std ${bst}
+			convert_xfm -omat std2$bst.mat -inverse ${bst}2std.mat
+			matrix_to_decimal std2$bst.mat
+		fi
+		cp $bst.hdr $bst.img $procdir
+		srcrt[i]=`basename ${src[i]}`
+	done
+fi
+
+#copy sources to procdir.
+for ((i=0;i<$nsrc;i++)); do
+	st=${srcrt[i]}
+	if [ ! -f "$procdir/${st}.img" ]; then	cp $st.hdr $st.img $procdir; fi
+done
+rt=`basename $rt`
+
+#MNI152=$FSLDIR/data/standard/MNI152lin_T1_1mm.nii.gz
+atldir=`which mask_face_nomatlab`
+CN2020=${atldir%/mask_face_nomatlab}/template/CN2020.nii.gz
+atldir=${atldir%/mask_face_nomatlab}/ATLAS
+echo $atldir
+
+
+if (( manual_roi==0 )); then #automatic ROI calculation for the reference series.
+#	set -x
+
+	if (( mni == 0 )); then
+		if [ -z "$an" ]; then
+			find_atl="fatl . ${rt#study*}" #DICOM-based fatl		
+		else
+			find_atl="fatla $rt" #Analyze-based fatl
+		fi	
+		#find best atlas.
+		res=( `$find_atl` )
+		n=${#res[*]}
+		ATLAS=${res[$((n-1))]}
+		T=${atldir}/$ATLAS
+	else
+		ATLAS=CN2020
+		T=$CN2020
+	fi
+	
+	if [ ! -f "${procdir}/${rt}.img" ]; then	cp $rt.* ${procdir}; fi
+	if [ -f "${exMask}.img" ]; then cp ${exMask}.* ${procdir}; fi
+	pushd ${procdir} &> /dev/null
+	echo "mask_face $*" > ${rt}.mask_face.cmd
+	if [ ! -f "${T}.img" -a ! -f "$T" ]; then echo "mask_face ERROR: atlas not found in location: $T, exiting"; exit -1; fi
+	echo "Selected atlas: $T"
+
+	if [ ! -f "${ATLAS}_on_${rt}.img" ]; then	
+		#-init MNI152_reor_to_${rt}.fslmat
+		echo flirt -ref $rt -in $T -out ${ATLAS}_on_${rt} -omat ${ATLAS}_to_${rt}.fslmat
+		time flirt -ref $rt -in $T -out ${ATLAS}_on_${rt} -omat ${ATLAS}_to_${rt}.fslmat
+		matrix_to_decimal ${ATLAS}_to_${rt}.fslmat
+		
+		if (( mni == 1 )); then
+			convert_xfm -omat CAPIIO_to_${rt}.fslmat -concat ${ATLAS}_to_${rt}.fslmat $atldir/CAPIIO_to_CN2020.mat
+			matrix_to_decimal CAPIIO_to_${rt}.fslmat
+			ATLAS=CAPIIO
+			T=${atldir}/$ATLAS 				
+		fi
+	fi
+	if [ ! -f "${ATLAS}_to_${rt}.fslmat" ]; then
+		echo "mask_face ERROR: Atlas registration failed, exiting."
+		exit -1
+	fi
+	#transform coords.
+	COORD=${rt}_faceroi.lst
+	COORDel=${rt}_earl.lst
+	COORDer=${rt}_earr.lst
+#		img2imgcoord -src $atl -dest $in -xfm $trans $roifile > $out
+	make_coord_file $rt $T $atldir/face_atl.lst ${ATLAS}_to_${rt}.fslmat $COORD
+	if [ "${maskears}" == "1" ]; then
+		make_coord_file $rt $T $atldir/earl_atl.lst ${ATLAS}_to_${rt}.fslmat $COORDel
+		make_coord_file $rt $T $atldir/earr_atl.lst ${ATLAS}_to_${rt}.fslmat $COORDer
+#		img2imgcoord -src $T -dest $rt -xfm ${ATLAS}_to_${rt}.fslmat $atldir/earl_atl.lst > $COORDel
+#		img2imgcoord -src $T -dest $rt -xfm ${ATLAS}_to_${rt}.fslmat $atldir/earr_atl.lst > $COORDer
+#		sed -i".bak" '1d' $COORDel
+#		sed -i".bak" '1d' $COORDer
+	fi
+else #prepare data for manual ROI calculation.
+	if [ ! -f "${procdir}/${rt}.img" ]; then	cp $rt.* ${procdir}; fi
+	if [ -f "${exMask}.img" ]; then cp ${exMask}.* ${procdir}; fi
+	cp ${roifiles[*]} $procdir
+	pushd ${procdir} &> /dev/null
+fi # end of the automatic ROI calculation.
+
+#calculate the brain mask for the reference series.
+if [ "${brainmask}" == "1" ]; then
+	bet $rt ${rt}_bet -m -f 0.3
+	exMask="${rt}_bet_mask"
+	#now, transform the original volume to the FSL default orientation.
+	echo 1 0 0 0 > eye.mat; echo 0 1 0 0 >> eye.mat; echo 0 0 1 0 >> eye.mat; echo 0 0 0 1 >> eye.mat
+	flirt -in $rt -ref $rt -out ${rt}_fsl -init eye.mat -applyxfm
+	mv ${rt}.hdr ${rt}.hdr.bk
+	mv ${rt}.img ${rt}.img.bk
+	mv ${rt}_fsl.hdr ${rt}.hdr
+	mv ${rt}_fsl.img ${rt}.img	
+fi
+
+#create a mask from the target atlas.
+if (( mask_atlas )); then 
+	fslmaths $T -thrp 6 -bin -kernel sphere 2 -ero -dilF -fillh atl_mask
+fi
+
+
+#run epicryption for the reference series.
+#set -x
+if [ -n "$exMask" ]; then params="exmask $exMask"; fi
+params="${params} method $method thresh $thresh grain $step optimization $v"
+echo "starting params: $params"
+
+echo "Running epicryption ..."
+if (( manual_roi==1 )); then #manually specified roi's
+	rt_in=$rt
+	for ((i=0; i<${#rois[*]}; i++)); do
+		j=$((i+1))
+		echo "Masking region $j out of ${#rois[*]}"
+		rt_out=${rt}_$j
+		run_masking_roi $rt_in $rt_out ${pt_out[i]} ${pt_in[i]} ${vers[i]} ${rt_out} "$params"
+		rt_in=${rt}_$j
+	done
+	run_masking_roi $rt_out $rt_out ${pt_out[0]} ${pt_in[0]} ${vers[0]} ${rt_out} "${params} snapshotOnly 1"
+	rt_out=$rt_in
+	#re-generate the final snapshot.
+elif (( manual_roi==2 )); then #roi files
+	rt_in=$rt
+	for ((i=0; i<nrfiles; i++)); do
+		j=$((i+1))
+		echo "Masking region $j out of ${#rois[*]}"
+		rt_out=${rt}_$j
+		run_masking_roi_file $rt_in $rt_out ${roifiles[i]} ${rt_out} "$params"
+		rt_in=${rt}_$j
+	done
+	#re-generate the final snapshot.
+	run_masking_roi_file $rt_out $rt_out ${roifiles[0]} ${rt_out} "${params} snapshotOnly 1"
+	rt_out=$rt_in
+else #auto ROI's
+set -x
+	i=1
+	rt_out=${rt}_${i}
+	rt_in=$rt
+	rt_out=$rt
+	mask_file $rt
+	if [ -f "${rt}_faceroi.lst" ]; then
+		echo "Masking face ..."
+		rt_in=$rt_out
+		rt_out=${rt}_$i
+		run_masking_coord ${rt_in} ${rt_out} ${rt}_faceroi.lst $rt_out "$params"
+		params="head_mask ${rt}_obj_mask $params"
+		(( i++ ))
+	fi
+	if [ -f "${rt}_earl.lst" ]; then
+		echo "Left ear masking ..."
+		rt_in=$rt_out
+		rt_out=${rt}_$i
+		run_masking_coord ${rt_in} ${rt_out} ${rt}_earl.lst $rt_out "$params"
+		(( i++ ))
+	fi
+	if [ -f "${rt}_earr.lst" ]; then
+		echo "Right ear masking ..."
+		rt_in=$rt_out
+		rt_out=${rt}_$i
+		run_masking_coord $rt_in ${rt_out} ${rt}_earr.lst $rt_out "$params"
+		(( i++ ))
+	fi
+	#re-generate the final snapshot
+	if [ -f "${rt}_faceroi.lst" ]; then
+		run_masking_coord ${rt_out} ${rt_out} ${rt}_faceroi.lst $rt_out "${params} snapshotOnly 1"
+	fi
+fi
+
+echo "Epicryption done"
+rename_output $rt_out $rt $method
+# run face masking for dependent studies.
+params="method $method grain $step optimization $v"
+echo "Studies: $srcrt, $nsrc"
+if (( nsrc>1 )); then
+	for (( i=0; i<nsrc; i++ )); do
+		echo ${srcrt[i]}
+		if [ "${srcrt[i]}" == "$ref" ]; then out[$i]=$rt_out; continue; fi
+		run_masking_secondary ${srcrt[i]} $ref "$params"
+		out[$i]=${srcrt[i]}_full_${method}		
+	done
+else
+	out=${rt}_full_${method}
+fi
+popd &> /dev/null
+
+# write back the modified DICOM for all processed series.
+for ((i=0; i<${#out[*]}; i++ )); do
+	write_out ${src[i]} ${srcrt[i]}_full_${method} $outdir/${srcrt[i]} $procdir
+	if [ -n "$create_zip" ]; then
+		s=${srcrt[i]}
+		s=${s#study}
+#		pushd $procdir
+		zip $procdir/${s}_qc.zip $procdir/${srcrt[i]}_*.out $procdir/${srcrt[i]}_*.png *.log *.err
+#		popd
+	fi
+done
