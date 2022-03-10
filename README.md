@@ -1,8 +1,6 @@
 Connectome Computation System (CCS)
 ===
 
-CCS has following functional organization:
-
 ![Functional Organization of CCS](https://github.com/zuoxinian/CCS/blob/master/manual/Figure1_CCS-GeneralDesign.png)
 
 If you use or are inspired by CCS, please credit it both the github link and the two key references:
