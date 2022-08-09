@@ -24,7 +24,7 @@ for tem = 1:length(sublist_all)
         N = num_samples;
         % Set up variables
         
-        fmax = 1/(2*TR); fmin = 1/(N*TR/2);
+        fmax = 1/(2*TR); fmin = 1/(N*TR*2);
         if rem(N,2)==0
             fnum = N/2;
         else
