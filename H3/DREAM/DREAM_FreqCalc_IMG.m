@@ -34,7 +34,7 @@ for tem = 1:length(sublist_all)
         tmpidx = find(freq<=fmin);
         frmin = freq(tmpidx(end)+4); % minimal reliable frequency
         
-        %% Determine the range of frequencies in natural log space
+        %% Determine the range of frequencies in natural log sapce
         
         nlcfmin = round(log(frmin));
         nlcfmax = round(log(fmax));
