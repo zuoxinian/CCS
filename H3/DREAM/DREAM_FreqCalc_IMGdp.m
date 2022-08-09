@@ -31,7 +31,7 @@ for tem = 1:length(sublist_all)
         input_m = mat2cell(subj_vol,Vn,size(subj_vol,2));
         
         clear subj_vol;
-        fmax = 1/(2*TR); fmin = 1/(N*TR/2);
+        fmax = 1/(2*TR); fmin = 1/(N*TR*2);
         if rem(N,2)==0
             fnum = N/2;
         else
