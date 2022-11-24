@@ -1,6 +1,6 @@
 This is the data and code for the Gong's paper: Connectivity gradients revealed by resting-state fMRI at multiple frequency bands.
 
-![Connectivity Gradients across Frequency Bands](https://github.com/zuoxinian/CCS/blob/master/manual/parcellation/hcpgradient/fig2.jpg)
+![Connectivity Gradients across Frequency Bands](https://github.com/zuoxinian/CCS/blob/master/parcellation/hcpgradient/fig2.jpg)
 
 Gradient Data
 ======
