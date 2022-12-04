@@ -1,6 +1,8 @@
 ### Gain better insights with additional intrinsic dimensions and normative brain charts
 ===============
 
+![Charts as microscopes for decoding high-dimensional secrets in low-dimension space](chart-microscope.jpg "Give me the microscope!")
+
 a) The two groups of sample points distinguished by different colors are non-separable on the 2-dimensional plane with the two features as axes. 
 
 b) When the sample size increases, the respective distribution areas of the two groups appear clearer but still overlap. 
