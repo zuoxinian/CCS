@@ -9,5 +9,5 @@ c) With age as the third dimension, the two groups are effectively separated, an
 d) Increasing the sample size helps to more clearly obtain the different distribution patterns of the groups. 
 
 e&f) By obtaining normative features with reference to the normative trajectory, the hidden distinction between the two groups is revealed on the 2-dimensional plane with the two normative axes, which is clear even with a small sample size as in panel e. 
-=============
+
 Animations that show distributions of samples in panels c, d and processes of transforming raw feature scores into normative feature scores are provided here.
