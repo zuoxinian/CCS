@@ -15,3 +15,5 @@ e&f) By obtaining normative features with reference to the normative trajectory,
 
 ### Animations that show distributions of samples in panels c, d and processes of transforming raw feature scores into normative feature scores are provided below in both [2D](AnimatedChange2D.gif) and [3D](AnimatedChange3D.gif) space.
 
+The credits of all the materials generated should belong to Dr. Zi-Xuan Zhou from the [Developmental Population Neuroscience Research Center](http://deepneuro.bnu.edu.cn). 
+
