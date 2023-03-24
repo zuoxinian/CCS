@@ -3,6 +3,8 @@ Connectome Computation System (CCS)
 
 ![Functional Organization of CCS](https://github.com/zuoxinian/CCS/blob/master/manual/Figure1_CCS-GeneralDesign.png)
 
+![Functional Organization of CCS](https://github.com/zuoxinian/CCS/blob/master/H3/GrowthCharts/Figure3_charts_thickness_yeo7networks.png)
+
 If you use or are inspired by CCS, please credit it both the github link and the two key references:
 
 1. Ting Xu, Zhi Yang, Lili Jiang, Xiu-Xia Xing, Xi-Nian Zuo (2015) [A Connectome Computation System for discovery science of brain](https://github.com/zuoxinian/CCS/blob/master/manual/ccs.paper.pdf). *Science Bulletin*, 60(1): 86-95.
