@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="c715466b-e2fd-4740-8631-b1f296ee93e2" name="AmygdalaGo-BOLT">
+        <fileTransfer accessType="SFTP" host="region-45.autodl.pro" port="38095" sshConfigId="50643e7a-2f7b-4be3-b2d4-f1b9d1d15a44" sshConfig="root@region-45.autodl.pro:38095 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
