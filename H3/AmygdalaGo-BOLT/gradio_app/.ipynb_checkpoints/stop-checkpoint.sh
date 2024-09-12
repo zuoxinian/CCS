@@ -1,0 +1,1 @@
+fuser -k 6006/tcp

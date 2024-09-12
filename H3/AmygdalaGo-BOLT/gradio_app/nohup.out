@@ -1,0 +1,1531 @@
+global==============>>>>>>>>>>>>>>>
+<<<<<<<<<<<<<<<<<<<<global==============
+Traceback (most recent call last):
+  File "gradio_app-v1.0.py", line 345, in <module>
+    main()
+  File "gradio_app-v1.0.py", line 341, in main
+    app.queue().launch(server_name = "0.0.0.0", server_port = 6006, share=True, inbrowser=True)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 2033, in launch
+    ) = networking.start_server(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/networking.py", line 207, in start_server
+    raise OSError(
+OSError: Cannot find empty port in range: 6006-6006. You can specify a different port by setting the GRADIO_SERVER_PORT environment variable or passing the `server_port` parameter to `launch()`.
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 84, in save
+    nib.save(nifti_image, file_name)
+NameError: name 'file_name' is not defined
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 84, in save
+    nib.save(nifti_image, file_name)
+NameError: name 'file_name' is not defined
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 209, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 96, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 209, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 96, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 84, in save
+    nib.save(nifti_image, file_name)
+NameError: name 'file_name' is not defined
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 84, in save
+    nib.save(nifti_image, file_name)
+NameError: name 'file_name' is not defined
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 84, in save
+    nib.save(nifti_image, file_name)
+NameError: name 'file_name' is not defined
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 84, in save
+    nib.save(nifti_image, file_name)
+NameError: name 'file_name' is not defined
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/uvicorn/protocols/websockets/websockets_impl.py", line 247, in run_asgi
+    result = await self.app(self.scope, self.asgi_receive, self.asgi_send)
+  File "/root/miniconda3/lib/python3.8/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+  File "/root/miniconda3/lib/python3.8/site-packages/fastapi/applications.py", line 1106, in __call__
+    await super().__call__(scope, receive, send)
+  File "/root/miniconda3/lib/python3.8/site-packages/starlette/applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/root/miniconda3/lib/python3.8/site-packages/starlette/middleware/errors.py", line 149, in __call__
+    await self.app(scope, receive, send)
+  File "/root/miniconda3/lib/python3.8/site-packages/starlette/middleware/cors.py", line 75, in __call__
+    await self.app(scope, receive, send)
+  File "/root/miniconda3/lib/python3.8/site-packages/starlette/middleware/exceptions.py", line 79, in __call__
+    raise exc
+  File "/root/miniconda3/lib/python3.8/site-packages/starlette/middleware/exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "/root/miniconda3/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 20, in __call__
+    raise e
+  File "/root/miniconda3/lib/python3.8/site-packages/fastapi/middleware/asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "/root/miniconda3/lib/python3.8/site-packages/starlette/routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "/root/miniconda3/lib/python3.8/site-packages/starlette/routing.py", line 341, in handle
+    await self.app(scope, receive, send)
+  File "/root/miniconda3/lib/python3.8/site-packages/starlette/routing.py", line 82, in app
+    await func(session)
+  File "/root/miniconda3/lib/python3.8/site-packages/fastapi/routing.py", line 325, in app
+    await dependant.call(**values)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/routes.py", line 571, in join_queue
+    session_info = await asyncio.wait_for(
+  File "/root/miniconda3/lib/python3.8/asyncio/tasks.py", line 494, in wait_for
+    return fut.result()
+  File "/root/miniconda3/lib/python3.8/site-packages/starlette/websockets.py", line 133, in receive_json
+    self._raise_on_disconnect(message)
+  File "/root/miniconda3/lib/python3.8/site-packages/starlette/websockets.py", line 105, in _raise_on_disconnect
+    raise WebSocketDisconnect(message["code"])
+starlette.websockets.WebSocketDisconnect: 1006
+gradio_app-v1.0.py:122: RuntimeWarning: invalid value encountered in true_divide
+  img_arr = (img_arr - np.min(img_arr)) / (np.max(img_arr) - np.min(img_arr))
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 84, in save
+    nib.save(nifti_image, file_name)
+NameError: name 'file_name' is not defined
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 84, in save
+    nib.save(nifti_image, file_name)
+NameError: name 'file_name' is not defined
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 84, in save
+    nib.save(nifti_image, file_name)
+NameError: name 'file_name' is not defined
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 84, in save
+    nib.save(nifti_image, file_name)
+NameError: name 'file_name' is not defined
+gradio_app-v1.0.py:131: RuntimeWarning: invalid value encountered in true_divide
+  img_arr = (img_arr - np.min(img_arr)) / (np.max(img_arr) - np.min(img_arr))
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 84, in save
+    nib.save(nifti_image, file_name)
+NameError: name 'file_name' is not defined
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 84, in save
+    nib.save(nifti_image, file_name)
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 163, in merge_xy
+    xy_old = this.get_xy()
+  File "gradio_app-v1.0.py", line 140, in get_xy
+    return self.get_nii_array_list_xy(minlay.old_data)
+  File "gradio_app-v1.0.py", line 113, in get_nii_array_list_xy
+    _, _, z = nii_array.shape
+AttributeError: 'NoneType' object has no attribute 'shape'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+gradio_app-v1.0.py:117: RuntimeWarning: invalid value encountered in true_divide
+  img_arr = (img_arr - np.min(img_arr)) / (np.max(img_arr) - np.min(img_arr))
+gradio_app-v1.0.py:126: RuntimeWarning: invalid value encountered in true_divide
+  img_arr = (img_arr - np.min(img_arr)) / (np.max(img_arr) - np.min(img_arr))
+gradio_app-v1.0.py:135: RuntimeWarning: invalid value encountered in true_divide
+  img_arr = (img_arr - np.min(img_arr)) / (np.max(img_arr) - np.min(img_arr))
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app-v1.0.py", line 204, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app-v1.0.py", line 99, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+global==============>>>>>>>>>>>>>>>
+<<<<<<<<<<<<<<<<<<<<global==============
+Traceback (most recent call last):
+  File "gradio_app-v1.0.py", line 339, in <module>
+    main()
+  File "gradio_app-v1.0.py", line 335, in main
+    app.queue().launch(server_name = "0.0.0.0", server_port = 6006, share=True, inbrowser=True)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 2033, in launch
+    ) = networking.start_server(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/networking.py", line 207, in start_server
+    raise OSError(
+OSError: Cannot find empty port in range: 6006-6006. You can specify a different port by setting the GRADIO_SERVER_PORT environment variable or passing the `server_port` parameter to `launch()`.
+python: can't open file 'gradio_app-v1.0.py.py': [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app.py", line 84, in save
+    nifti_image = nib.Nifti1Image(minlay.new_data, affine=np.eye(4))
+  File "/root/miniconda3/lib/python3.8/site-packages/nibabel/nifti1.py", line 1848, in __init__
+    super().__init__(dataobj, affine, header, extra, file_map, dtype)
+  File "/root/miniconda3/lib/python3.8/site-packages/nibabel/analyze.py", line 909, in __init__
+    super().__init__(dataobj, affine, header, extra, file_map)
+  File "/root/miniconda3/lib/python3.8/site-packages/nibabel/spatialimages.py", line 531, in __init__
+    self.update_header()
+  File "/root/miniconda3/lib/python3.8/site-packages/nibabel/nifti1.py", line 2273, in update_header
+    super().update_header()
+  File "/root/miniconda3/lib/python3.8/site-packages/nibabel/nifti1.py", line 1884, in update_header
+    super().update_header()
+  File "/root/miniconda3/lib/python3.8/site-packages/nibabel/spatialimages.py", line 553, in update_header
+    shape = self._dataobj.shape
+AttributeError: 'NoneType' object has no attribute 'shape'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app.py", line 84, in save
+    nifti_image = nib.Nifti1Image(minlay.new_data, affine=np.eye(4))
+  File "/root/miniconda3/lib/python3.8/site-packages/nibabel/nifti1.py", line 1848, in __init__
+    super().__init__(dataobj, affine, header, extra, file_map, dtype)
+  File "/root/miniconda3/lib/python3.8/site-packages/nibabel/analyze.py", line 909, in __init__
+    super().__init__(dataobj, affine, header, extra, file_map)
+  File "/root/miniconda3/lib/python3.8/site-packages/nibabel/spatialimages.py", line 531, in __init__
+    self.update_header()
+  File "/root/miniconda3/lib/python3.8/site-packages/nibabel/nifti1.py", line 2273, in update_header
+    super().update_header()
+  File "/root/miniconda3/lib/python3.8/site-packages/nibabel/nifti1.py", line 1884, in update_header
+    super().update_header()
+  File "/root/miniconda3/lib/python3.8/site-packages/nibabel/spatialimages.py", line 553, in update_header
+    shape = self._dataobj.shape
+AttributeError: 'NoneType' object has no attribute 'shape'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app.py", line 84, in save
+    nifti_image = nib.Nifti1Image(minlay.new_data, affine=np.eye(4))
+  File "/root/miniconda3/lib/python3.8/site-packages/nibabel/nifti1.py", line 1848, in __init__
+    super().__init__(dataobj, affine, header, extra, file_map, dtype)
+  File "/root/miniconda3/lib/python3.8/site-packages/nibabel/analyze.py", line 909, in __init__
+    super().__init__(dataobj, affine, header, extra, file_map)
+  File "/root/miniconda3/lib/python3.8/site-packages/nibabel/spatialimages.py", line 531, in __init__
+    self.update_header()
+  File "/root/miniconda3/lib/python3.8/site-packages/nibabel/nifti1.py", line 2273, in update_header
+    super().update_header()
+  File "/root/miniconda3/lib/python3.8/site-packages/nibabel/nifti1.py", line 1884, in update_header
+    super().update_header()
+  File "/root/miniconda3/lib/python3.8/site-packages/nibabel/spatialimages.py", line 553, in update_header
+    shape = self._dataobj.shape
+AttributeError: 'NoneType' object has no attribute 'shape'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app.py", line 84, in save
+    nifti_image = nib.Nifti1Image(minlay.new_data, affine=np.eye(4))
+  File "/root/miniconda3/lib/python3.8/site-packages/nibabel/nifti1.py", line 1848, in __init__
+    super().__init__(dataobj, affine, header, extra, file_map, dtype)
+global==============>>>>>>>>>>>>>>>
+<<<<<<<<<<<<<<<<<<<<global==============
+Traceback (most recent call last):
+  File "gradio_app_release.py", line 339, in <module>
+    main()
+  File "gradio_app_release.py", line 335, in main
+    app.queue().launch(server_name = "0.0.0.0", server_port = 6006, share=True, inbrowser=True)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 2033, in launch
+    ) = networking.start_server(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/networking.py", line 207, in start_server
+    raise OSError(
+OSError: Cannot find empty port in range: 6006-6006. You can specify a different port by setting the GRADIO_SERVER_PORT environment variable or passing the `server_port` parameter to `launch()`.
+gradio_app_release.py:118: RuntimeWarning: invalid value encountered in divide
+  img_arr = (img_arr - np.min(img_arr)) / (np.max(img_arr) - np.min(img_arr))
+gradio_app_release.py:127: RuntimeWarning: invalid value encountered in divide
+  img_arr = (img_arr - np.min(img_arr)) / (np.max(img_arr) - np.min(img_arr))
+gradio_app_release.py:136: RuntimeWarning: invalid value encountered in divide
+  img_arr = (img_arr - np.min(img_arr)) / (np.max(img_arr) - np.min(img_arr))
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app_release.py", line 205, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app_release.py", line 100, in read_nii
+    img = nib.load(nii_obj.name)
+AttributeError: 'NoneType' object has no attribute 'name'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app_release.py", line 205, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app_release.py", line 100, in read_nii
+    img = nib.load(nii_obj.name)
+  File "/root/miniconda3/lib/python3.8/site-packages/nibabel/loadsave.py", line 104, in load
+    raise ImageFileError(f"Empty file: '{filename}'")
+nibabel.filebasedimages.ImageFileError: Empty file: '/tmp/gradio/da39a3ee5e6b4b0d3255bfef95601890afd80709/in.nii'
+Traceback (most recent call last):
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/queueing.py", line 407, in call_prediction
+    output = await route_utils.call_process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/route_utils.py", line 226, in call_process_api
+    output = await app.get_blocks().process_api(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1550, in process_api
+    result = await self.call_function(
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/blocks.py", line 1185, in call_function
+    prediction = await anyio.to_thread.run_sync(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/to_thread.py", line 33, in run_sync
+    return await get_asynclib().run_sync_in_worker_thread(
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 877, in run_sync_in_worker_thread
+    return await future
+  File "/root/miniconda3/lib/python3.8/site-packages/anyio/_backends/_asyncio.py", line 807, in run
+    result = context.run(func, *args)
+  File "/root/miniconda3/lib/python3.8/site-packages/gradio/utils.py", line 661, in wrapper
+    response = f(*args, **kwargs)
+  File "gradio_app_release.py", line 205, in run
+    minlay.read_nii(file_obj)
+  File "gradio_app_release.py", line 100, in read_nii
+    img = nib.load(nii_obj.name)
+  File "/root/miniconda3/lib/python3.8/site-packages/nibabel/loadsave.py", line 104, in load
+    raise ImageFileError(f"Empty file: '{filename}'")
+nibabel.filebasedimages.ImageFileError: Empty file: '/tmp/gradio/da39a3ee5e6b4b0d3255bfef95601890afd80709/in.nii'
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.
+WARNING:  Invalid HTTP request received.

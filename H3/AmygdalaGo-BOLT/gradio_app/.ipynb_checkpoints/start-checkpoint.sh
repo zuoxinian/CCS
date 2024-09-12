@@ -1,0 +1,1 @@
+nohup python gradio_app-v1.0.py &
